@@ -16,11 +16,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     loginregisterdialog.cpp \
-    gameserver.cpp
+    gameserver.cpp \
+    admincontrolform.cpp
 
 HEADERS  += mainwindow.h \
     loginregisterdialog.h \
-    gameserver.h
+    gameserver.h \
+    admincontrolform.h
 
 FORMS    += mainwindow.ui \
-    loginregisterdialog.ui
+    loginregisterdialog.ui \
+    admincontrolform.ui
