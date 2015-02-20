@@ -17,6 +17,7 @@ void GameServer::call(QString method, QHash<QString, QString> params)
     for(QHash<QString, QString>::iterator i = params.begin(); i != params.end(); ++i)
         query.addQueryItem(i.key(),i.value());
 
+    method = method.replace(".","/").replace("::","/").replace(":","/").replace(" ", "/");
     url.setPath("/" + method);
     url.setQuery(query);
 

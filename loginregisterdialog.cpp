@@ -171,11 +171,14 @@ void LoginRegisterDialog::loginResponse(QByteArray response)
         QJsonValue success = root.value("success");
         QJsonValue status = root.value("status");
         QJsonValue jApikey = root.value("apikey");
+        QJsonValue jGroup = root.value("group");
         if (success.type() == QJsonValue::Bool && success.toBool())
         {
             ui->status_line->setText("Success: apikey = " + jApikey.toString("N/A"));
             apikey = jApikey.toString();
             serverUrl = ui->login_server->text();
+            group = jGroup.toString("players");
+            login = ui->login_nickname->text();
             QTimer::singleShot(1000,this,SLOT(getHeroes()));
         }
         else

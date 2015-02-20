@@ -17,12 +17,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     loginregisterdialog.cpp \
     gameserver.cpp \
-    admincontrolform.cpp
+    admincontrolform.cpp \
+    helpers.cpp
 
 HEADERS  += mainwindow.h \
     loginregisterdialog.h \
     gameserver.h \
-    admincontrolform.h
+    admincontrolform.h \
+    helpers.h
 
 FORMS    += mainwindow.ui \
     loginregisterdialog.ui \

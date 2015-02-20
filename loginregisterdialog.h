@@ -20,6 +20,8 @@ public:
     QString getServerURL(){return serverUrl;}
     QString getHeroName(){return chosenHeroName;}
     QString getHeroHash(){return chosenHeroHash;}
+    QString getLogin(){return login;}
+    QString getGroup(){return group;}
 
 
 
@@ -60,6 +62,8 @@ private:
     QString serverUrl;
     QString chosenHeroName;
     QString chosenHeroHash;
+    QString group;
+    QString login;
     QHash<QString, QString> foundHeroes;
 
 };
