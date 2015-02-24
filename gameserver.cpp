@@ -29,7 +29,42 @@ void GameServer::call(QString method, QHash<QString, QString> params)
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
     manager->get(request);
+}
 
+void GameServer::post(QString method, QHash<QString, QString> params)
+{
+    method = method.replace(".","/").replace("::","/").replace(":","/").replace(" ", "/");
+    if (manager)
+        delete manager;
+    manager = new QNetworkAccessManager(this);
+
+    QUrl url(server);
+    url.setPath("/" + method);
+
+    QUrlQuery query;
+
+    for(QHash<QString, QString>::iterator i = params.begin(); i != params.end(); ++i)
+        query.addQueryItem(i.key(),i.value());
+
+    QNetworkRequest request(url);
+    request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+
+    /*
+     *  QUrlQuery postData;
+        postData.addQueryItem("param1", "string");
+        postData.addQueryItem("param2", "string");
+        ...
+        QNetworkRequest request(serviceUrl);
+        request.setHeader(QNetworkRequest::ContentTypeHeader,
+            "application/x-www-form-urlencoded");
+        networkManager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
+     * */
+
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyFinished(QNetworkReply*)));
+    manager->post(request,query.toString(QUrl::FullyEncoded).toUtf8());
 }
 
 GameServer::~GameServer()

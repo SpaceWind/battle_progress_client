@@ -17,6 +17,7 @@ public:
     explicit GameServer(QString serverURL, QObject *parent = 0);
 
     void call(QString method, QHash<QString, QString> params);
+    void post(QString method, QHash<QString, QString> params);
     ~GameServer();
 
 signals:

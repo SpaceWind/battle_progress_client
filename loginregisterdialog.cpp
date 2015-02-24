@@ -230,9 +230,6 @@ void LoginRegisterDialog::checkUserResponse(QByteArray response)
     else
     {
         jsonParser parser(response);
-        QJsonValue success = root.value("success");
-        QJsonValue exists = root.value("exists");
-
         if (parser.getBool("success"))
         {
             if (parser.getBool("exists"))
