@@ -3,7 +3,9 @@
 
 #include <QDialog>
 #include <QStringList>
+#include <QList>
 #include "gameserver.h"
+#include "helpers.h"
 
 namespace Ui {
 class LoginRegisterDialog;

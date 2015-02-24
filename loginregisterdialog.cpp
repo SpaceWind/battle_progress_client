@@ -1,6 +1,5 @@
 #include "loginregisterdialog.h"
 #include "ui_loginregisterdialog.h"
-#include "gameserver.h"
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -146,16 +145,12 @@ void LoginRegisterDialog::registrationResponse(QByteArray response)
         ui->status_line->setText("CONNECTION UNAVAILABLE!");
     else
     {
-        QJsonDocument jDoc = QJsonDocument::fromJson(response);
-        QJsonObject root = jDoc.object();
-        QJsonValue success = root.value("success");
-        QJsonValue status = root.value("status");
-        if (success.type() == QJsonValue::Bool && success.toBool())
-        {
+        jsonParser parser(response);
+        QString status = parser.first("status");
+        if (parser.getBool("success"))
             ui->status_line->setText("Registration Complete!");
-        }
         else
-            ui->status_line->setText("ERROR: " + status.toString("Reponse Incorrect"));
+            ui->status_line->setText("ERROR: " + status);
     }
     ui->pushButton->setEnabled(true);
 }
@@ -166,23 +161,18 @@ void LoginRegisterDialog::loginResponse(QByteArray response)
         ui->status_line->setText("CONNECTION UNAVAILABLE!");
     else
     {
-        QJsonDocument jDoc = QJsonDocument::fromJson(response);
-        QJsonObject root = jDoc.object();
-        QJsonValue success = root.value("success");
-        QJsonValue status = root.value("status");
-        QJsonValue jApikey = root.value("apikey");
-        QJsonValue jGroup = root.value("group");
-        if (success.type() == QJsonValue::Bool && success.toBool())
+        jsonParser parser(response);
+        if (parser.getBool("success"))
         {
-            ui->status_line->setText("Success: apikey = " + jApikey.toString("N/A"));
-            apikey = jApikey.toString();
+            apikey = parser.first("apikey");
+            ui->status_line->setText("Success: apikey = " + apikey);
             serverUrl = ui->login_server->text();
-            group = jGroup.toString("players");
+            group = parser.first("group");
             login = ui->login_nickname->text();
-            QTimer::singleShot(1000,this,SLOT(getHeroes()));
+            QTimer::singleShot(500,this,SLOT(getHeroes()));
         }
         else
-            ui->status_line->setText("ERROR: " + status.toString("Reponse Incorrect"));
+            ui->status_line->setText("ERROR: " + parser.first("status"));
     }
     ui->pushButton_2->setEnabled(true);
 }
@@ -193,31 +183,25 @@ void LoginRegisterDialog::searchHeroesResponse(QByteArray response)
         ui->status_line->setText("CONNECTION UNAVAILABLE!");
     else
     {
-        QJsonDocument jDoc = QJsonDocument::fromJson(response);
-        QJsonObject root = jDoc.object();
+        jsonParser parser(response);
+        QString status = parser.first("status");
 
-        QJsonValue success = root.value("success");
-        QJsonValue status = root.value("status");
+        QStringList heroes = parser.get("heroes[]");
+        QStringList names = parser.get("names[]");
 
-        if (success.type() == QJsonValue::Bool && success.toBool())
+        if (parser.getBool("success"))
         {
-            QJsonValue heroesValue = root.value("heroes");
-            QJsonValue namesValue = root.value("names");
-
-            QJsonArray heroes = heroesValue.toArray();
-            QJsonArray names = namesValue.toArray();
-
             foundHeroes.clear();
+            for (int i=0; i< heroes.count(); ++i)
+                foundHeroes[names[i]] = heroes[i];
+
             ui->heroes->clear();
-            for (int i=0; i<heroes.count(); i++)
-            {
-                foundHeroes[names[i].toString()] = heroes[i].toString();
-                ui->heroes->addItem(names[i].toString());
-            }
+            ui->heroes->addItems(names);
+
             if (heroes.count() != 0)
             {
-                chosenHeroHash = heroes[0].toString();
-                chosenHeroName = names[0].toString();
+                chosenHeroHash = heroes.first();
+                chosenHeroName = names.first();
                 ui->heroes->setEnabled(true);
                 ui->connect_button->setEnabled(true);
             }
@@ -225,7 +209,7 @@ void LoginRegisterDialog::searchHeroesResponse(QByteArray response)
             ui->status_line->setText("Success!");
         }
         else
-            ui->status_line->setText("ERROR: " + status.toString("Reponse Incorrect"));
+            ui->status_line->setText("ERROR: " + status);
     }
     ui->pushButton_2->setEnabled(true);
 }
@@ -242,20 +226,16 @@ void LoginRegisterDialog::newHeroResponse(QByteArray response)
 void LoginRegisterDialog::checkUserResponse(QByteArray response)
 {
     if (response.indexOf("!!:HTTP") == 0)
-    {
         ui->register_nickname->setStyleSheet("");
-    }
     else
     {
-        QJsonDocument jDoc = QJsonDocument::fromJson(response);
-        QJsonObject root = jDoc.object();
-
+        jsonParser parser(response);
         QJsonValue success = root.value("success");
         QJsonValue exists = root.value("exists");
 
-        if (success.type() == QJsonValue::Bool && success.toBool())
+        if (parser.getBool("success"))
         {
-            if (exists.toBool(true))
+            if (parser.getBool("exists"))
                 ui->register_nickname->setStyleSheet("background-color: #FF9999");
             else
                 ui->register_nickname->setStyleSheet("background-color: #99FF99");
