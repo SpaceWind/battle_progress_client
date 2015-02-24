@@ -32,6 +32,7 @@ private slots:
     void newClassAction(QString name, QString apikey, QString imp, QString rop, QString dap, QString vip, QString tvp, QString prp);
     void newFactionAction(QString name, QString apikey, QString imp, QString rop, QString dap, QString vip, QString tvp, QString prp);
     void newClassResponse(QByteArray response);
+    void newFactionResponse(QByteArray response);
 
     void saveDescAction(QString name, QString item);
     void saveDescResponse(QByteArray response);

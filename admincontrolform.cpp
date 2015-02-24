@@ -200,7 +200,7 @@ void adminControlForm::newFactionAction(QString name, QString apikey, QString im
     }
     QHash<QString, QString> params;
     params["apikey"] = apikey;
-    params["person_name"] = name;
+    params["faction_name"] = name;
     params["lib_imp"] = imp;
     params["lib_rop"] = rop;
     params["lib_dap"] = dap;
@@ -209,7 +209,7 @@ void adminControlForm::newFactionAction(QString name, QString apikey, QString im
     params["lib_prp"] = prp;
 
     server->disconnect();
-    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(newClassResponse(QByteArray)));
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(newFactionResponse(QByteArray)));
 
     server->call("admin newFaction",params);
     ui->status_label->setText("Creating new faction...");
@@ -230,6 +230,21 @@ void adminControlForm::newClassResponse(QByteArray response)
     }
 }
 
+void adminControlForm::newFactionResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        ui->status_label->setText(parser.first("status"));
+        lastDescIndex = 0;
+        lastDescName = ui->faction_name->text();
+        lastDescItem = "Faction";
+        QTimer::singleShot(250,this,SLOT(resaveDesc()));
+    }
+}
+
 void adminControlForm::saveDescAction(QString name, QString item)
 {
     if (server)
@@ -237,10 +252,15 @@ void adminControlForm::saveDescAction(QString name, QString item)
         delete server;
         server = new GameServer(currentUser.server);
     }
-    QString text = ui->class_desc->toPlainText();
+    QString text;
+    if (item == "Faction")
+        text = ui->faction_desc->toPlainText();
+    else
+        text = ui->class_desc->toPlainText();
     if (lastDescIndex>= text.length())
     {
         ui->status_label->setText("OK");
+        setEnabled(true);
         return;
     }
     QHash<QString, QString> params;
@@ -273,12 +293,12 @@ void adminControlForm::saveDescResponse(QByteArray response)
             lastDescName = parser.first("name");
             QTimer::singleShot(250, this, SLOT(resaveDesc()));
         }
-       // ui->status_label->setText(parser.first("status"));
     }
 }
 
 void adminControlForm::resaveDesc()
 {
+    setEnabled(false);
     saveDescAction(lastDescName, lastDescItem);
 }
 
@@ -289,14 +309,20 @@ void adminControlForm::on_pushButton_clicked()
 
 void adminControlForm::on_found_heroes_currentIndexChanged(int index)
 {
-   // ui->class_combobox->setCurrentText(foundHeroes[ui->found_heroes->currentText()].race);
-    ui->faction_combobox->setCurrentText(foundHeroes[ui->found_heroes->currentText()].faction);
+    for (int i=0; i< ui->faction_combobox->count(); i++)
+        if (ui->faction_combobox->itemText(i).toLower() == foundHeroes[ui->found_heroes->currentText()].faction)
+            ui->faction_combobox->setCurrentIndex(i);
+    for (int i=0; i< ui->class_combobox->count(); i++)
+        if (ui->class_combobox->itemText(i).toLower() == foundHeroes[ui->found_heroes->currentText()].race)
+            ui->class_combobox->setCurrentIndex(i);
     ui->level_label->setText(QString::number(foundHeroes[ui->found_heroes->currentText()].lvl));
 }
 
 void adminControlForm::on_pushButton_4_clicked()
 {
-
+    newFactionAction(ui->faction_name->text(), currentUser.apikey,
+                     ui->faction_imp->text(), ui->faction_rop->text(), ui->faction_dap->text(),
+                     ui->faction_vip->text(), ui->faction_tvp->text(), ui->faction_prp->text());
 }
 
 void adminControlForm::on_pushButton_5_clicked()
