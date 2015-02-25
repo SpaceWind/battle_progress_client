@@ -50,18 +50,6 @@ void GameServer::post(QString method, QHash<QString, QString> params)
     request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
-
-    /*
-     *  QUrlQuery postData;
-        postData.addQueryItem("param1", "string");
-        postData.addQueryItem("param2", "string");
-        ...
-        QNetworkRequest request(serviceUrl);
-        request.setHeader(QNetworkRequest::ContentTypeHeader,
-            "application/x-www-form-urlencoded");
-        networkManager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
-     * */
-
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
     manager->post(request,query.toString(QUrl::FullyEncoded).toUtf8());
