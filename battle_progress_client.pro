@@ -18,17 +18,23 @@ SOURCES += main.cpp\
     loginregisterdialog.cpp \
     gameserver.cpp \
     admincontrolform.cpp \
-    helpers.cpp
+    helpers.cpp \
+    classspecsdialog.cpp \
+    newherodialog.cpp
 
 HEADERS  += mainwindow.h \
     loginregisterdialog.h \
     gameserver.h \
     admincontrolform.h \
-    helpers.h
+    helpers.h \
+    classspecsdialog.h \
+    newherodialog.h
 
 FORMS    += mainwindow.ui \
     loginregisterdialog.ui \
-    admincontrolform.ui
+    admincontrolform.ui \
+    classspecsdialog.ui \
+    newherodialog.ui
 
 RESOURCES += \
     main.qrc

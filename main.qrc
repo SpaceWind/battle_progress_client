@@ -3,5 +3,6 @@
         <file>assets/refresh.ico</file>
         <file>assets/load.png</file>
         <file>assets/save.png</file>
+        <file>assets/roll.png</file>
     </qresource>
 </RCC>

@@ -157,3 +157,36 @@ QString jsonParser::valueToString(QJsonValue value, QString defaultValue)
         return defaultValue;
     }
 }
+
+
+classSpecsDesc::classSpecsDesc()
+{
+    str = dex = mag = intellect = tra = vel = mana = hp = 0;
+}
+
+classSpecsDesc classSpecsDesc::fromString(QString s)
+{
+    QStringList tokens = s.split(";");
+    classSpecsDesc result;
+    foreach (const QString& str, tokens)
+    {
+        QStringList tokenItems = str.split(" ");
+        if (str.indexOf("str") == 0)
+            result.str = tokenItems.at(1).toInt();
+        else if (str.simplified().indexOf("dex") == 0)
+            result.dex = tokenItems.at(1).toInt();
+        else if (str.simplified().indexOf("mag") == 0)
+            result.mag = tokenItems.at(1).toInt();
+        else if (str.simplified().indexOf("int") == 0)
+            result.intellect = tokenItems.at(1).toInt();
+        else if (str.simplified().indexOf("tra") == 0)
+            result.tra = tokenItems.at(1).toInt();
+        else if (str.simplified().indexOf("vel") == 0)
+            result.vel = tokenItems.at(1).toInt();
+        else if (str.simplified().indexOf("hp") == 0)
+            result.hp = tokenItems.at(1).toInt();
+        else if (str.simplified().indexOf("mana") == 0)
+            result.mana = tokenItems.at(1).toInt();
+    }
+    return result;
+}

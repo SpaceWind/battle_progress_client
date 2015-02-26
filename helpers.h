@@ -27,6 +27,14 @@ struct heroDescriptor_Min
     int lvl;
 };
 
+struct classSpecsDesc
+{
+    classSpecsDesc();
+    ~classSpecsDesc(){;}
+    int str, dex, mag, intellect, tra, vel, hp, mana;
+    static classSpecsDesc fromString(QString s);
+};
+
 class jsonParser
 {
 public:

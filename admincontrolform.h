@@ -47,6 +47,8 @@ private slots:
 
     void newClassAction(QString name, QString apikey, QString imp, QString rop, QString dap, QString vip, QString tvp, QString prp);
     void newClassResponse(QByteArray response);
+    void newSpecsAction();
+    void newSpecsResponse(QByteArray response);
 
     void newFactionAction(QString name, QString apikey, QString imp, QString rop, QString dap, QString vip, QString tvp, QString prp);
     void newFactionResponse(QByteArray response);
@@ -57,6 +59,9 @@ private slots:
 
     void getClassInfoAction(QString className);
     void getClassInfoResponse(QByteArray response);
+    void getNextClassSpecs();
+    void getClassSpecsAction(QString className);
+    void getClassSpecsResponse(QByteArray response);
 
     void getFactionInfoAction(QString factionName);
     void getFactionInfoResponse(QByteArray response);
@@ -67,10 +72,18 @@ private slots:
     void nextFactionRelation();
     void renderFactionRelations();
 
+    void getClassRelationsAction(QString className);
+    void getClassRelationsResponse(QByteArray response);
+    void nextClassRelation();
+    void renderClassRelations();
+
     void saveFactionRelationsAction(QString factionName);
     void saveFactionRelationsResponse(QByteArray response);
     void nextFactionSave();
 
+    void saveClassRelationsAction(QString className);
+    void saveClassRelationsResponse(QByteArray response);
+    void nextClassSave();
 
 
     //----------------------Handlers-----------------------------------------------------------------------------
@@ -93,6 +106,16 @@ private slots:
     void on_pushButton_7_clicked();
 
     void on_pushButton_6_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_12_clicked();
+
+    void on_pushButton_11_clicked();
+
+    void on_pushButton_13_clicked();
 
 private:
     Ui::adminControlForm *ui;

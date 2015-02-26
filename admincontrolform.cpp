@@ -8,6 +8,7 @@
 #include <QTimer>
 
 #include "admincontrolform.h"
+#include "classspecsdialog.h"
 #include "ui_admincontrolform.h"
 
 adminControlForm::adminControlForm(QWidget *parent) :
@@ -230,6 +231,50 @@ void adminControlForm::newClassResponse(QByteArray response)
     }
 }
 
+void adminControlForm::newSpecsAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+
+    classSpecsDesc specs = classSpecsDesc::fromString(ui->class_specs->text());
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+    params["class_name"] = ui->class_name->text();
+    params["str"] = QString::number(specs.str);
+    params["dex"] = QString::number(specs.dex);
+    params["mag"] = QString::number(specs.mag);
+    params["int"] = QString::number(specs.intellect);
+    params["tra"] = QString::number(specs.tra);
+    params["vel"] = QString::number(specs.vel);
+    params["hp"] = QString::number(specs.hp);
+    params["mana"] = QString::number(specs.mana);
+
+    server->disconnect();
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(newSpecsResponse(QByteArray)));
+
+    server->call("admin class setSpecs",params);
+    ui->status_label->setText("Saving specs...");
+}
+
+void adminControlForm::newSpecsResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            ui->status_label->setText("OK");
+        }
+        else
+            ui->status_label->setText("ERROR: "+parser.first("status"));
+    }
+}
+
 void adminControlForm::newFactionResponse(QByteArray response)
 {
     if (response.indexOf("!!:HTTP") == 0)
@@ -261,6 +306,7 @@ void adminControlForm::saveDescAction(QString name, QString item)
     {
         ui->status_label->setText("OK");
         setEnabled(true);
+        QTimer::singleShot(150,this,SLOT(newSpecsAction()));
         return;
     }
     QHash<QString, QString> params;
@@ -350,9 +396,47 @@ void adminControlForm::getClassInfoResponse(QByteArray response)
         ui->class_vip->setText(foundVip);
         ui->class_tvp->setText(foundTvp);
         ui->class_prp->setText(foundPrp);
+        QTimer::singleShot(250,this, SLOT(getNextClassSpecs()));
         if (!isFound)
             QMessageBox::information(this,"Class was not found","Class was not found!");
         ui->status_label->setText(parser.first("status"));
+    }
+}
+
+void adminControlForm::getNextClassSpecs()
+{
+    getClassSpecsAction(lastClassInfoName);
+}
+
+void adminControlForm::getClassSpecsAction(QString className)
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    QHash<QString, QString> params;
+    params["class_name"] = className;
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(getClassSpecsResponse(QByteArray)));
+    server->call("meta specs",params);
+    ui->status_label->setText("Loading class specs...");
+}
+
+void adminControlForm::getClassSpecsResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            QString specs = parser.first("specs");
+            ui->class_specs->setText(specs);
+            ui->status_label->setText("OK");
+        }
+        else
+            ui->status_label->setText("ERROR: "+parser.first("status"));
     }
 }
 
@@ -424,7 +508,9 @@ void adminControlForm::getFactionRelationsAction(QString factionName)
 
     QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(getFactionRelationsResponse(QByteArray)));
     server->call("meta relations",params);
-    ui->status_label->setText("Loading relations...");
+
+    int percent = factions.indexOf(factionName) * 100 / factions.count();
+    ui->status_label->setText("Loading relations... " + QString::number(percent) + "%");
 }
 
 void adminControlForm::getFactionRelationsResponse(QByteArray response)
@@ -442,9 +528,9 @@ void adminControlForm::getFactionRelationsResponse(QByteArray response)
             QStringList hostileTokens;
             QStringList friendlyTokens;
             if (!hostile.isEmpty())
-                hostileTokens = hostile.split(";");
+                hostileTokens = hostile.split("-");
             if (!friendly.isEmpty())
-                friendlyTokens = friendly.split(";");
+                friendlyTokens = friendly.split("-");
             factionRelations[name] = compileRelations(factions,hostileTokens,friendlyTokens);
 
             QTimer::singleShot(500,this,SLOT(nextFactionRelation()));
@@ -525,6 +611,106 @@ void adminControlForm::renderFactionRelations()
     }
 }
 
+void adminControlForm::getClassRelationsAction(QString className)
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    lastClassInfoName = className;
+    QHash<QString, QString> params;
+    params["relation_type"] = "class";
+    params["relation_name"] = className;
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(getClassRelationsResponse(QByteArray)));
+    server->call("meta relations",params);
+
+
+    int percent = races.indexOf(className) * 100 / className.count();
+    ui->status_label->setText("Loading relations... " + QString::number(percent) + "%");
+}
+
+void adminControlForm::getClassRelationsResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            QString name = parser.first("name");
+            QString hostile = parser.first("hostile");
+            QString friendly = parser.first("friendly");
+            QStringList hostileTokens;
+            QStringList friendlyTokens;
+            if (!hostile.isEmpty())
+                hostileTokens = hostile.split("-");
+            if (!friendly.isEmpty())
+                friendlyTokens = friendly.split("-");
+            classRelations[name] = compileRelations(races,hostileTokens,friendlyTokens);
+
+            QTimer::singleShot(500,this,SLOT(nextClassRelation()));
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+}
+
+void adminControlForm::nextClassRelation()
+{
+    int currentIndex = races.indexOf(lastClassInfoName);
+    currentIndex++;
+    if (currentIndex < races.count())
+        getClassRelationsAction(races.at(currentIndex));
+    else
+    {
+        ui->status_label->setText("OK");
+        renderClassRelations();
+    }
+}
+
+void adminControlForm::renderClassRelations()
+{
+    while(ui->class_relations->rowCount())
+        ui->class_relations->removeRow(0);
+    while(ui->class_relations->columnCount())
+        ui->class_relations->removeColumn(0);
+    for (QHash<QString, QComboBox*>::iterator it = classTableItems.begin(); it != classTableItems.end(); ++it)
+        delete it.value();
+    classTableItems.clear();
+    ui->class_relations->setColumnCount(races.count());
+    ui->class_relations->setRowCount(races.count());
+    ui->class_relations->setHorizontalHeaderLabels(races);
+    for (int c = 0; c < ui->class_relations->horizontalHeader()->count(); ++c)
+    {
+        ui->class_relations->horizontalHeader()->setSectionResizeMode(c, QHeaderView::Stretch);
+        ui->class_relations->verticalHeader()->setSectionResizeMode(c, QHeaderView::Stretch);
+    }
+    ui->class_relations->setVerticalHeaderLabels(races);
+
+    for (int i=0; i<races.count(); i++)
+    for (int j=0; j<races.count(); j++)
+    {
+        QComboBox *comboBox = new QComboBox(0);
+        comboBox->addItem("friendly");
+        comboBox->addItem("neutral");
+        comboBox->addItem("hostile");
+        if (!classRelations.contains(races.at(j)))
+            comboBox->setCurrentIndex(1);
+        else if (classRelations[races.at(j)].at(i).relation == RelationDesc::FRIENDLY)
+            comboBox->setCurrentIndex(0);
+        else if (classRelations[races.at(j)].at(i).relation == RelationDesc::HOSTILE)
+            comboBox->setCurrentIndex(2);
+        else
+            comboBox->setCurrentIndex(1);
+
+        classTableItems["x"+QString::number(i)+"y"+QString::number(j)] = comboBox;
+        ui->class_relations->setCellWidget(j,i,comboBox);
+    }
+}
+
 void adminControlForm::saveFactionRelationsAction(QString factionName)
 {
     if (server)
@@ -547,13 +733,13 @@ void adminControlForm::saveFactionRelationsAction(QString factionName)
         {
             hostileStr += factions.at(i);
             if (i != factions.count()-1)
-                hostileStr += ";";
+                hostileStr += "-";
         }
         else if (item == "friendly")
         {
             friendlyStr += factions.at(i);
             if (i != factions.count()-1)
-                friendlyStr += ";";
+                friendlyStr += "-";
         }
     }
     params["h"] = hostileStr;
@@ -561,7 +747,10 @@ void adminControlForm::saveFactionRelationsAction(QString factionName)
 
     QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(saveFactionRelationsResponse(QByteArray)));
     server->call("admin createRelation",params);
-    ui->status_label->setText("Saving relations...");
+
+
+    int percent = factions.indexOf(factionName) * 100 / factions.count();
+    ui->status_label->setText("Saving relations... " + QString::number(percent) + "%");
 }
 
 void adminControlForm::saveFactionRelationsResponse(QByteArray response)
@@ -591,6 +780,79 @@ void adminControlForm::nextFactionSave()
         ui->status_label->setText("OK");
     }
 }
+
+void adminControlForm::saveClassRelationsAction(QString className)
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    lastClassInfoName = className;
+    QHash<QString, QString> params;
+    params["rel_type"] = "class";
+    params["rel_name"] = className;
+    params["apikey"] = currentUser.apikey;
+
+    QString hostileStr = "";
+    QString friendlyStr = "";
+    for (int i=0; i<races.count(); i++)
+    {
+        QString item = classTableItems["x"+QString::number(i)+"y"+QString::number(races.indexOf(className))]->currentText();
+        if (item == "hostile")
+        {
+            hostileStr += races.at(i);
+            if (i != races.count()-1)
+                hostileStr += "-";
+        }
+        else if (item == "friendly")
+        {
+            friendlyStr += races.at(i);
+            if (i != races.count()-1)
+                friendlyStr += "-";
+        }
+    }
+    params["h"] = hostileStr;
+    params["f"] = friendlyStr;
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(saveClassRelationsResponse(QByteArray)));
+    server->call("admin createRelation",params);
+
+
+    int percent = races.indexOf(className) * 100 / className.count();
+    ui->status_label->setText("Saving relations... " + QString::number(percent) + "%");
+}
+
+void adminControlForm::saveClassRelationsResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            QTimer::singleShot(250,this,SLOT(nextClassSave()));
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+}
+
+void adminControlForm::nextClassSave()
+{
+    int currentIndex = races.indexOf(lastClassInfoName);
+    currentIndex++;
+    if (currentIndex < races.count())
+        saveClassRelationsAction(races.at(currentIndex));
+    else
+    {
+        ui->status_label->setText("OK");
+    }
+}
+
+
+
 void adminControlForm::on_pushButton_clicked()
 {
     searchHeroesForLoginAction(ui->lineEdit->text(), currentUser.apikey);
@@ -662,12 +924,65 @@ RelationDesc::Relation RelationDesc::getRelationByString(QString desc)
 
 void adminControlForm::on_pushButton_7_clicked()
 {
+    if (factions.isEmpty())
+    {
+        QMessageBox::warning(this,"No factions to load!","Factions are not loaded yet or do not exist");
+        return;
+    }
     lastFactionInfoName = factions.at(0);
     getFactionRelationsAction(lastFactionInfoName);
 }
 
 void adminControlForm::on_pushButton_6_clicked()
 {
+
+    if (factions.isEmpty())
+    {
+        QMessageBox::warning(this,"No factions to load!","Factions are not loaded yet or do not exist");
+        return;
+    }
     lastFactionInfoName = factions.at(0);
     saveFactionRelationsAction(lastFactionInfoName);
+}
+
+void adminControlForm::on_pushButton_9_clicked()
+{
+    if (races.isEmpty())
+    {
+        QMessageBox::warning(this,"No classes to load!","Classes are not loaded yet or do not exist");
+        return;
+    }
+    lastClassInfoName = races.at(0);
+    getClassRelationsAction(lastClassInfoName);
+}
+
+void adminControlForm::on_pushButton_8_clicked()
+{
+    if (races.isEmpty())
+    {
+        QMessageBox::warning(this,"No classes to load!","Classes are not loaded yet or do not exist");
+        return;
+    }
+    lastClassInfoName = races.at(0);
+    saveClassRelationsAction(lastClassInfoName);
+}
+
+void adminControlForm::on_pushButton_12_clicked()
+{
+    searchRacesAction();
+}
+
+void adminControlForm::on_pushButton_11_clicked()
+{
+    searchRacesAction();
+}
+
+void adminControlForm::on_pushButton_13_clicked()
+{
+    classSpecsDesc d = classSpecsDesc::fromString(ui->class_specs->text());
+    classSpecsDialog dlg(d.str,d.dex,d.mag,d.intellect,d.tra,d.vel,d.hp,d.mana);
+    if (dlg.exec())
+        ui->class_specs->setText(dlg.data);
+    else
+        QMessageBox::information(this,"Specs rejected", "specs Rejected");
 }
