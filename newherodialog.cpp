@@ -162,8 +162,8 @@ void newHeroDialog::setBg(int opLevel)
     else
         ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(120, 220, 120, 80), stop:1 rgba(240, 255, 220, 255));\n\n");
 
-    if (opLevel <=13)
-        QTimer::singleShot(150,this,SLOT(on_pushButton_clicked()));
+  //  if (opLevel <=13)
+  //      QTimer::singleShot(150,this,SLOT(on_pushButton_clicked()));
 }
 
 void newHeroDialog::on_hero_name_textChanged(const QString &arg1)
