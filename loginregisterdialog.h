@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QStringList>
 #include <QList>
+#include "newherodialog.h"
 #include "gameserver.h"
 #include "helpers.h"
 
@@ -56,6 +57,8 @@ private slots:
     void on_register_nickname_editingFinished();
 
     void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::LoginRegisterDialog *ui;

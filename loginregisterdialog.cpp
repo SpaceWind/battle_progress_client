@@ -263,3 +263,20 @@ void LoginRegisterDialog::on_pushButton_3_clicked()
     pingServerAction();
     ui->pushButton_3->setEnabled(false);
 }
+
+void LoginRegisterDialog::on_pushButton_4_clicked()
+{
+    currentUserInfo accountInfo;
+    accountInfo.apikey = getKey();
+    accountInfo.group = getGroup();
+    accountInfo.server = getServerURL();
+    accountInfo.heroHash = getHeroHash();
+    accountInfo.heroName = getHeroName();
+    accountInfo.login = getLogin();
+
+    newHeroDialog diag(accountInfo);
+    if (diag.exec())
+    {
+        //
+    }
+}
