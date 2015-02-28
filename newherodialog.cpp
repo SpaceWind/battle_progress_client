@@ -150,20 +150,20 @@ QString newHeroDialog::buildDescString()
 void newHeroDialog::setBg(int opLevel)
 {
     if (opLevel < -9)
-        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.41, y1:0.68, x2:0.264, y2:0.861, stop:0 rgba(140, 95, 60, 100), stop:1 rgba(210, 180, 160, 255));\n\n");
+        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.41, y1:0.68, x2:0.264, y2:0.861, stop:0 rgba(140, 95, 60, 120), stop:1 rgba(210, 180, 160, 255));\n\n");
     else if (opLevel < 0)
-        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.43, y1:0.67, x2:0.204, y2:0.841, stop:0 rgba(170, 130, 78, 90), stop:1 rgba(255, 255, 255, 255));\n\n");
+        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.43, y1:0.67, x2:0.204, y2:0.841, stop:0 rgba(170, 130, 78, 110), stop:1 rgba(255, 255, 255, 255));\n\n");
     else if (opLevel <= 7)
-        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.53, y1:0.57, x2:0.224, y2:0.821, stop:0 rgba(160, 160, 180, 80), stop:1 rgba(255, 255, 255, 255));\n\n");
+        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.53, y1:0.57, x2:0.224, y2:0.821, stop:0 rgba(160, 160, 180, 100), stop:1 rgba(255, 255, 255, 255));\n\n");
     else if (opLevel <= 10)
-        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(220, 190, 60, 70), stop:1 rgba(255, 255, 220, 255));\n\n");
+        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(220, 190, 60, 90), stop:1 rgba(255, 255, 220, 255));\n\n");
     else if (opLevel <= 13)
-        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(60, 210, 242, 80), stop:1 rgba(230, 255, 255, 255));\n\n");
+        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(60, 210, 242, 100), stop:1 rgba(230, 255, 255, 255));\n\n");
     else
-        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(120, 220, 120, 80), stop:1 rgba(240, 255, 220, 255));\n\n");
+        ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(120, 220, 120, 100), stop:1 rgba(240, 255, 220, 255));\n\n");
 
-  //  if (opLevel <=13)
-  //      QTimer::singleShot(150,this,SLOT(on_pushButton_clicked()));
+    if (opLevel <=13)
+        QTimer::singleShot(150,this,SLOT(on_pushButton_clicked()));
 }
 
 void newHeroDialog::on_hero_name_textChanged(const QString &arg1)

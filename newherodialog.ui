@@ -13,36 +13,37 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QComboBox" name="faction_combobox"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_3">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Class:</string>
+        <string>Gender:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Faction:</string>
-       </property>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="gender_combobox">
+       <item>
+        <property name="text">
+         <string>Male</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Female</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QComboBox" name="class_combobox"/>
      </item>
-     <item row="3" column="0" colspan="2">
+     <item row="4" column="0" colspan="2">
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
         <string>Биография героя:</string>
@@ -123,7 +124,30 @@ background: qlineargradient(spread:reflect, x1:0.43, y1:0.67, x2:0.204, y2:0.841
        </layout>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="0" column="1">
+      <widget class="QComboBox" name="faction_combobox"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Class:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Faction:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
       <widget class="QPushButton" name="pushButton_2">
        <property name="minimumSize">
         <size>
@@ -136,7 +160,7 @@ background: qlineargradient(spread:reflect, x1:0.43, y1:0.67, x2:0.204, y2:0.841
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="3" column="1">
       <widget class="QLineEdit" name="hero_name">
        <property name="minimumSize">
         <size>
@@ -149,30 +173,12 @@ background: qlineargradient(spread:reflect, x1:0.43, y1:0.67, x2:0.204, y2:0.841
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string/>
        </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Gender:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QComboBox" name="gender_combobox">
-       <item>
-        <property name="text">
-         <string>Male</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Female</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
