@@ -169,7 +169,7 @@ void LoginRegisterDialog::loginResponse(QByteArray response)
             serverUrl = ui->login_server->text();
             group = parser.first("group");
             login = ui->login_nickname->text();
-            QTimer::singleShot(500,this,SLOT(getHeroes()));
+            QTimer::singleShot(200,this,SLOT(getHeroes()));
         }
         else
             ui->status_line->setText("ERROR: " + parser.first("status"));
@@ -204,6 +204,7 @@ void LoginRegisterDialog::searchHeroesResponse(QByteArray response)
                 chosenHeroName = names.first();
                 ui->heroes->setEnabled(true);
                 ui->connect_button->setEnabled(true);
+                ui->pushButton_4->setEnabled(true);
             }
             ui->new_hero->setEnabled(true);
             ui->status_line->setText("Success!");
@@ -277,6 +278,6 @@ void LoginRegisterDialog::on_pushButton_4_clicked()
     newHeroDialog diag(accountInfo);
     if (diag.exec())
     {
-        //
+        QTimer::singleShot(100,this,SLOT(getHeroes()));
     }
 }

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     admincontrolform.cpp \
     helpers.cpp \
     classspecsdialog.cpp \
-    newherodialog.cpp
+    newherodialog.cpp \
+    heropreviewwindow.cpp
 
 HEADERS  += mainwindow.h \
     loginregisterdialog.h \
@@ -28,13 +29,15 @@ HEADERS  += mainwindow.h \
     admincontrolform.h \
     helpers.h \
     classspecsdialog.h \
-    newherodialog.h
+    newherodialog.h \
+    heropreviewwindow.h
 
 FORMS    += mainwindow.ui \
     loginregisterdialog.ui \
     admincontrolform.ui \
     classspecsdialog.ui \
-    newherodialog.ui
+    newherodialog.ui \
+    heropreviewwindow.ui
 
 RESOURCES += \
     main.qrc

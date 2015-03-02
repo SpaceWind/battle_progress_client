@@ -112,7 +112,7 @@ void newHeroDialog::rollHeroAction()
 
     server->call("hero.roll",params);
     ui->pushButton->setEnabled(false);
-    ui->status_label->setText("Searching for factions...");
+    ui->status_label->setText("Rolling champ...");
 }
 
 void newHeroDialog::rollHeroResponse(QByteArray response)
@@ -127,10 +127,49 @@ void newHeroDialog::rollHeroResponse(QByteArray response)
             originalText = parser.first("desc");
             ui->hero_desc->setHtml(buildDescString());
             setBg(parser.getInt("quality"));
+            if(ui->hero_name->text() != "")
+                ui->saveButton->setEnabled(true);
         }
         ui->status_label->setText(parser.first("status"));
     }
     ui->pushButton->setEnabled(true);
+}
+
+void newHeroDialog::saveRolledChampAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    QHash<QString, QString> params;
+    params["faction"] = ui->faction_combobox->currentText();
+    params["apikey"] = currentUser.apikey;
+    params["name"] = ui->hero_name->text();
+    if (ui->gender_combobox->currentIndex() == 1)
+        params["gender"] = "female";
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(saveRolledChampResponse(QByteArray)));
+
+    server->call("hero.save",params);
+    this->setEnabled(false);
+    ui->status_label->setText("Creating new champ! Hurray!");
+}
+
+void newHeroDialog::saveRolledChampResponse(QByteArray response)
+{
+    this->setEnabled(true);
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            accept();
+        }
+        ui->status_label->setText(parser.first("status"));
+    }
 }
 
 QString newHeroDialog::buildDescString()
@@ -161,17 +200,21 @@ void newHeroDialog::setBg(int opLevel)
         ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(60, 210, 242, 100), stop:1 rgba(230, 255, 255, 255));\n\n");
     else
         ui->hero_desc->setStyleSheet("background-color: #EEEEEE;\nbackground: qlineargradient(spread:reflect, x1:0.63, y1:0.47, x2:0.244, y2:0.801, stop:0 rgba(120, 220, 120, 100), stop:1 rgba(240, 255, 220, 255));\n\n");
-
-    if (opLevel <=13)
-        QTimer::singleShot(150,this,SLOT(on_pushButton_clicked()));
 }
 
 void newHeroDialog::on_hero_name_textChanged(const QString &arg1)
 {
-    ui->hero_desc->setHtml(buildDescString());
+    if(arg1 != "")
+        ui->saveButton->setEnabled(true);
+    ui->hero_desc->setText(buildDescString());
 }
 
 void newHeroDialog::on_pushButton_clicked()
 {
     rollHeroAction();
+}
+
+void newHeroDialog::on_saveButton_clicked()
+{
+    saveRolledChampAction();
 }

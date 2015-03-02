@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>374</width>
-    <height>236</height>
+    <height>241</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -279,7 +279,7 @@ QTabBar::tab:hover {
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>16777215</width>
          <height>16777215</height>
         </size>
        </property>
@@ -289,7 +289,7 @@ QTabBar::tab:hover {
         </font>
        </property>
        <property name="text">
-        <string>New</string>
+        <string>View</string>
        </property>
       </widget>
      </item>
@@ -353,6 +353,9 @@ QTabBar::tab:hover {
      </item>
      <item row="0" column="3">
       <widget class="QPushButton" name="pushButton_4">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -360,7 +363,7 @@ QTabBar::tab:hover {
         </sizepolicy>
        </property>
        <property name="text">
-        <string>ROLL</string>
+        <string>NEW</string>
        </property>
       </widget>
      </item>

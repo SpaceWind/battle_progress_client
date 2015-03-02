@@ -34,10 +34,15 @@ public slots:
     void rollHeroAction();
     void rollHeroResponse(QByteArray response);
 
+    void saveRolledChampAction();
+    void saveRolledChampResponse(QByteArray response);
+
 private slots:
     void on_hero_name_textChanged(const QString &arg1);
 
     void on_pushButton_clicked();
+
+    void on_saveButton_clicked();
 
 private:
     QString buildDescString();
