@@ -6,96 +6,71 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>842</width>
-    <height>483</height>
+    <width>898</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Hero Preview</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="1" rowspan="2">
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Equipment</string>
+   <item row="2" column="2">
+    <widget class="QGroupBox" name="groupBox_6">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
+     <property name="minimumSize">
+      <size>
+       <width>256</width>
+       <height>256</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Map</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
-       <widget class="QListView" name="listView"/>
+       <widget class="QLabel" name="map_pixels">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="0" column="0" rowspan="2">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="maximumSize">
+   <item row="0" column="2" rowspan="2">
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
       <size>
-       <width>300</width>
-       <height>16777215</height>
+       <width>256</width>
+       <height>0</height>
       </size>
      </property>
      <property name="title">
-      <string>Stats</string>
+      <string>Quests</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="0" colspan="2">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>MAG: 18 [+1.5]</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QListWidget" name="listWidget"/>
       </item>
-      <item row="5" column="0" colspan="2">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>VEL: 18 [+1.5]</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>DEX: 18 [+1.5]</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>TRA: 18 [+1.5]</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>STR: 18 [+1.5]</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QProgressBar" name="progressBar">
+      <item>
+       <widget class="QProgressBar" name="progressBar_6">
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
         <property name="styleSheet">
          <string notr="true">QProgressBar::chunk {
-     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(178, 0, 0, 255), stop:0.318182 rgba(216, 0, 7, 223), stop:0.505682 rgba(254, 158, 41, 207), stop:0.977273 rgba(111, 1, 1, 255));
+     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(83, 111, 135, 236), stop:0.318182 rgba(173, 205, 196, 223), stop:0.505682 rgba(173, 148, 180, 255), stop:0.977273 rgba(63, 32, 102, 230));
      width: 1px;
  }
 
@@ -103,10 +78,9 @@
      border: 2px solid grey;
      border-radius: 5px;
      text-align: right;
-	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.517045 rgba(216, 199, 70, 255), stop:1 rgba(255, 255, 255, 0));
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(165, 162, 114, 255), stop:0.318409 rgba(255, 255, 252, 221), stop:1 rgba(156, 123, 123, 255));
  }
-
-</string>
+qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(165, 162, 114, 255), stop:0.318182 rgba(255, 255, 252, 221), stop:1 rgba(156, 123, 123, 255))</string>
         </property>
         <property name="value">
          <number>70</number>
@@ -131,56 +105,17 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>INT: 18 [+1.5]</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>HP:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>MANA:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QProgressBar" name="progressBar_2">
-        <property name="styleSheet">
-         <string notr="true">QProgressBar::chunk {
-     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(55, 0, 178, 219), stop:0.318182 rgba(0, 39, 255, 223), stop:0.505682 rgba(3, 222, 254, 255), stop:0.977273 rgba(53, 0, 111, 255));
-     width: 1px;
- }
-
- QProgressBar {
-     border: 2px solid grey;
-     border-radius: 5px;
-     text-align: right;
-	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.517045 rgba(77, 190, 237, 255), stop:1 rgba(255, 255, 255, 0));
- }
-</string>
-        </property>
-        <property name="value">
-         <number>70</number>
-        </property>
-        <property name="textVisible">
-         <bool>false</bool>
-        </property>
-        <property name="format">
-         <string>%v / %m</string>
-        </property>
-       </widget>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1" rowspan="2">
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>Equipment</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QListView" name="listView"/>
       </item>
      </layout>
     </widget>
@@ -188,7 +123,13 @@
    <item row="2" column="1">
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Items</string>
+      <string>Items [0 / 35]</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -197,7 +138,7 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="maximumSize">
       <size>
@@ -213,16 +154,6 @@
        <widget class="QLabel" name="label_11">
         <property name="text">
          <string>Faction: GOING IKEA</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_13">
-        <property name="text">
-         <string>EXP:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -269,14 +200,105 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="1">
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" rowspan="2">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="maximumSize">
+      <size>
+       <width>300</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Stats</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>0</number>
+      </property>
+      <item row="9" column="0" colspan="4">
+       <widget class="QLabel" name="label_16">
+        <property name="text">
+         <string>HP: 100 (85 + 15) [+4]</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="4">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>MAG: 14 (14 + 1) [+0.8]</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="4">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>VEL: 20 (19 + 1) [+2.5]</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="0">
+       <widget class="QLabel" name="label_15">
+        <property name="text">
+         <string>Mood:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="0">
+       <widget class="QLabel" name="label_13">
+        <property name="text">
+         <string>EXP:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>MANA:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>HP:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="1" colspan="3">
        <widget class="QProgressBar" name="progressBar_3">
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
         <property name="styleSheet">
          <string notr="true">QProgressBar::chunk {
-     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(124, 131, 0, 255), stop:0.318182 rgba(232, 207, 73, 223), stop:0.505682 rgba(180,250, 30, 255), stop:0.977273 rgba(110, 120, 24, 255));
+     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(194, 161, 27, 236), stop:0.318182 rgba(253, 255, 75, 248), stop:0.505682 rgba(241, 192, 90, 255), stop:0.977273 rgba(189, 145, 8, 230));
      width: 1px;
  }
 
@@ -284,13 +306,161 @@
      border: 2px solid grey;
      border-radius: 5px;
      text-align: right;
-	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.517045 rgba(160, 240, 70, 255), stop:1 rgba(255, 255, 255, 0));
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(165, 162, 114, 255), stop:0.318409 rgba(255, 255, 230, 221), stop:1 rgba(156, 123, 123, 255));
+		color: #00f;
+	font-weight: bold;
+     text-align: center;
  }
 
 </string>
         </property>
         <property name="value">
          <number>70</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="textVisible">
+         <bool>true</bool>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="textDirection">
+         <enum>QProgressBar::TopToBottom</enum>
+        </property>
+        <property name="format">
+         <string>%v / %m</string>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="1" colspan="3">
+       <widget class="QProgressBar" name="progressBar_2">
+        <property name="styleSheet">
+         <string notr="true">QProgressBar::chunk {
+     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(27, 67, 194, 236), stop:0.318182 rgba(206, 206, 219, 241), stop:0.505682 rgba(180, 164, 255, 255), stop:0.977273 rgba(41, 8, 189, 230));
+     width: 1px;
+ }
+
+ QProgressBar {
+     border: 2px solid grey;
+     border-radius: 5px;
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(165, 162, 114, 255), stop:0.318409 rgba(230, 230, 255, 221), stop:1 rgba(156, 123, 123, 255));
+		color: #FFF;
+	font-weight: bold;
+     text-align: center;
+ }
+</string>
+        </property>
+        <property name="value">
+         <number>70</number>
+        </property>
+        <property name="textVisible">
+         <bool>true</bool>
+        </property>
+        <property name="format">
+         <string>%v / %m</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="1" colspan="3">
+       <widget class="QProgressBar" name="progressBar">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QProgressBar::chunk {
+     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(194, 27, 27, 236), stop:0.318182 rgba(241, 227, 227, 241), stop:0.505682 rgba(255, 164, 164, 255), stop:0.977273 rgba(189, 8, 8, 230));
+     width: 1px;
+ }
+
+ QProgressBar {
+     border: 2px solid grey;
+     border-radius: 5px;
+     text-align: center;
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(165, 162, 114, 255), stop:0.318409 rgba(255, 230, 230, 221), stop:1 rgba(156, 123, 123, 255));
+	color: #FF3;
+	font-weight: bold;
+     text-align: center;
+ }
+</string>
+        </property>
+        <property name="value">
+         <number>70</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="textVisible">
+         <bool>true</bool>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="textDirection">
+         <enum>QProgressBar::TopToBottom</enum>
+        </property>
+        <property name="format">
+         <string>%v / %m</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="4">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>STR: %TOTAL% (%BASIC + %ITEMS) [+%PERLVL]</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="4">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>INT: 17 (14 + 3) [+0.7]</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="3">
+       <widget class="QProgressBar" name="progressBar_5">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QProgressBar::chunk {
+     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.517045 rgba(255, 220, 80, 200), stop:1 rgba(255, 255, 255, 0));
+     width: 1px;
+ }
+
+ QProgressBar {
+     border: 2px solid grey;
+	border-left: 0px;
+     border-top-right-radius: 5px;
+     border-bottom-right-radius: 5px;
+     text-align: right;
+	background: qradialgradient(spread:repeat, cx:1, cy:0.567, radius:2, fx:0.001, fy:0.511236, stop:0 rgba(255, 0, 0, 255), stop:0.0852273 rgba(255, 224, 11, 242), stop:0.193182 rgba(255, 0, 0, 255), stop:0.384932 rgba(255, 247, 183, 255), stop:0.642045 rgba(255, 255, 255, 255), stop:0.742466 rgba(255, 0, 0, 255), stop:0.817808 rgba(255, 255, 255, 255), stop:1 rgba(255, 0, 0, 255));
+ }
+
+</string>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>1000</number>
+        </property>
+        <property name="value">
+         <number>500</number>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -312,10 +482,30 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QLabel" name="label_15">
+      <item row="2" column="0" colspan="4">
+       <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Mood:</string>
+         <string>DEX: 34 (26 + 8) [+3]</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0" colspan="4">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>TRA: 13 (18 - 5)  [+1.75]</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0" colspan="4">
+       <widget class="QLabel" name="label_17">
+        <property name="text">
+         <string>MANA: 75 [+3]</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -323,44 +513,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="0" column="2" rowspan="2">
-    <widget class="QGroupBox" name="groupBox_5">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>256</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="title">
-      <string>GroupBox</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QGroupBox" name="groupBox_6">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>256</width>
-       <height>256</height>
-      </size>
-     </property>
-     <property name="title">
-      <string>GroupBox</string>
-     </property>
     </widget>
    </item>
   </layout>

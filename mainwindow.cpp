@@ -38,6 +38,7 @@ void MainWindow::showEvent(QShowEvent *)
 MainWindow::~MainWindow()
 {
     delete ui;
+    this->ui
 }
 
 void MainWindow::createAdminWindow()
