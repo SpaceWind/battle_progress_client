@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include "loginregisterdialog.h"
 #include "admincontrolform.h"
+#include "heropreviewwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,7 +39,6 @@ void MainWindow::showEvent(QShowEvent *)
 MainWindow::~MainWindow()
 {
     delete ui;
-    this->ui
 }
 
 void MainWindow::createAdminWindow()
@@ -51,5 +51,13 @@ void MainWindow::createAdminWindow()
         adminForm->setFocus();
         adminForm->setUser(accountInfo);
         this->hide();
+    }
+    else
+    {
+        heroPreviewWindow *hp = new heroPreviewWindow(this);
+        hp->show();
+        hp->setFocus();
+        hp->setUser(accountInfo);
+        hp->useHeroAction();
     }
 }

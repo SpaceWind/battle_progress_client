@@ -29,4 +29,24 @@ private:
     QString server;
 };
 
+class ActionResponser : public QObject
+{
+    Q_OBJECT
+public slots:
+    virtual void processResponse(QByteArray result)=0;
+};
+
+class ActionPerformer : public QObject
+{
+    Q_OBJECT
+public:
+    ActionPerformer(){alreadyCalled = false;}
+    ~ActionPerformer(){delete gs;}
+
+    void call(QString serverURL, QString method, QHash<QString, QString> params, ActionResponser* responser);
+private:
+    GameServer * gs;
+    bool alreadyCalled;
+};
+
 #endif // GAMESERVER_H

@@ -60,6 +60,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_view_button_clicked();
+
 private:
     Ui::LoginRegisterDialog *ui;
     GameServer * server;

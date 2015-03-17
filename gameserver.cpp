@@ -73,3 +73,15 @@ void GameServer::replyFinished(QNetworkReply *reply)
     }
 }
 
+
+
+void ActionPerformer::call(QString serverURL, QString method, QHash<QString, QString> params, ActionResponser *responser)
+{
+    if (alreadyCalled)
+        return;
+    gs = new GameServer(serverURL);
+
+    QObject::connect(gs,SIGNAL(callFinished(QByteArray)),responser,SLOT(processResponse(QByteArray)));
+    gs->call(method,params);
+    alreadyCalled = true;
+}

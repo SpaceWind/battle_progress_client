@@ -1,5 +1,6 @@
 #include "loginregisterdialog.h"
 #include "ui_loginregisterdialog.h"
+#include "heropreviewwindow.h"
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -18,6 +19,7 @@ LoginRegisterDialog::LoginRegisterDialog(QWidget *parent) :
     ui->login_password->setEchoMode(ui->login_password->Password);
     ui->register_password->setEchoMode(ui->register_password->Password);
     setResult(this->Rejected);
+    setWindowTitle("Battle Progress!");
 }
 
 LoginRegisterDialog::~LoginRegisterDialog()
@@ -117,22 +119,19 @@ void LoginRegisterDialog::on_pushButton_2_clicked()
 
 void LoginRegisterDialog::on_new_hero_clicked()
 {
-    QHash<QString, QString> params;
-    params["login"] = ui->login_nickname->text();
-    bool ok;
-    QString text = QInputDialog::getText(this, tr("Input hero Name"),
-                                         tr("Hero name:"), QLineEdit::Normal,
-                                         QDir::home().dirName(), &ok);
-    if (ok && !text.isEmpty())
+    currentUserInfo accountInfo;
+    accountInfo.apikey = getKey();
+    accountInfo.group = getGroup();
+    accountInfo.server = getServerURL();
+    accountInfo.heroHash = getHeroHash();
+    accountInfo.heroName = getHeroName();
+    accountInfo.login = getLogin();
+
+    newHeroDialog diag(accountInfo);
+    if (diag.exec())
     {
-        params["name"] = text;
-        QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(newHeroResponse(QByteArray)));
-        server->call("temphero",params);
-        ui->status_line->setText("Creating new hero!");
-        ui->pushButton_2->setEnabled(false);
+        QTimer::singleShot(100,this,SLOT(getHeroes()));
     }
-    else
-        ui->status_line->setText("Cannot create Hero without the name!");
 }
 void LoginRegisterDialog::on_connect_button_clicked()
 {
@@ -204,7 +203,7 @@ void LoginRegisterDialog::searchHeroesResponse(QByteArray response)
                 chosenHeroName = names.first();
                 ui->heroes->setEnabled(true);
                 ui->connect_button->setEnabled(true);
-                ui->pushButton_4->setEnabled(true);
+                ui->view_button->setEnabled(true);
             }
             ui->new_hero->setEnabled(true);
             ui->status_line->setText("Success!");
@@ -267,7 +266,14 @@ void LoginRegisterDialog::on_pushButton_3_clicked()
 
 void LoginRegisterDialog::on_pushButton_4_clicked()
 {
+
+}
+
+void LoginRegisterDialog::on_view_button_clicked()
+{
+    heroPreviewWindow heroPreview;
     currentUserInfo accountInfo;
+
     accountInfo.apikey = getKey();
     accountInfo.group = getGroup();
     accountInfo.server = getServerURL();
@@ -275,9 +281,9 @@ void LoginRegisterDialog::on_pushButton_4_clicked()
     accountInfo.heroName = getHeroName();
     accountInfo.login = getLogin();
 
-    newHeroDialog diag(accountInfo);
-    if (diag.exec())
-    {
-        QTimer::singleShot(100,this,SLOT(getHeroes()));
-    }
+    heroPreview.setWindowModality(Qt::WindowModal);
+    heroPreview.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    heroPreview.setUser(accountInfo);
+    heroPreview.useHeroAction();
+    heroPreview.exec();
 }
