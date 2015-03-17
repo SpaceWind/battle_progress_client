@@ -1,3 +1,4 @@
+#include <QPropertyAnimation>
 #include "heropreviewwindow.h"
 #include "ui_heropreviewwindow.h"
 
@@ -22,7 +23,7 @@ void heroPreviewWindow::useHeroAction()
     params["heroid"] = currentUser.heroHash;
     server->call("hero use", params);
     QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(useHeroResponse(QByteArray)));
-    this->setEnabled(false);
+    this->setWindowOpacity(0.0);
     ui->status_line->setText("Connecting to server...");
 }
 
@@ -51,7 +52,6 @@ void heroPreviewWindow::loadFullHeroInfoAction()
     params["apikey"] = currentUser.apikey;
     server->call("hero preview", params);
     QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(loadFullHeroInfoResponse(QByteArray)));
-    this->setEnabled(false);
     ui->status_line->setText("Loading hero info");
 }
 
@@ -104,7 +104,7 @@ void heroPreviewWindow::loadFullHeroInfoResponse(QByteArray response)
         else
             ui->status_line->setText("ERROR: " + parser.first("status"));
     }
-    this->setEnabled(true);
+    this->setWindowOpacity(1);
 }
 
 

@@ -147,9 +147,16 @@ void LoginRegisterDialog::registrationResponse(QByteArray response)
         jsonParser parser(response);
         QString status = parser.first("status");
         if (parser.getBool("success"))
+        {
             ui->status_line->setText("Registration Complete!");
+            ui->tabWidget->setCurrentIndex(0);
+            ui->login_nickname->setFocus();
+            ui->register_nickname->setText("");
+            ui->register_password->setText("");
+        }
         else
             ui->status_line->setText("ERROR: " + status);
+
     }
     ui->pushButton->setEnabled(true);
 }
