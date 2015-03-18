@@ -21,6 +21,21 @@ struct RelationDesc
 
 };
 
+struct SpellDescriptor
+{
+    static SpellDescriptor fromString(QString str);
+    QString toString();
+    QString spell_name;
+    QString spell_class;
+    QString cd;
+    QString cost;
+    QStringList effects;
+    QString req;
+    QString level_scales;
+    QString stat_scales;
+};
+
+
 class adminControlForm : public QWidget
 {
     Q_OBJECT
@@ -85,6 +100,12 @@ private slots:
     void saveClassRelationsResponse(QByteArray response);
     void nextClassSave();
 
+    void loadSpellsForClassAction();
+    void loadSpellsForClassResponse(QByteArray response);
+
+    void saveSpellForClassAction();
+    void saveSpellForClassResponse(QByteArray response);
+
 
     //----------------------Handlers-----------------------------------------------------------------------------
     void on_pushButton_clicked();
@@ -117,6 +138,20 @@ private slots:
 
     void on_pushButton_13_clicked();
 
+    void on_tabWidget_currentChanged(int index);
+
+    void on_spells_combobox_currentIndexChanged(const QString &arg1);
+
+    void on_spell_effect_list_currentRowChanged(int currentRow);
+
+    void on_new_effect_clicked();
+
+    void on_update_effect_clicked();
+
+    void on_pushButton_14_clicked();
+
+    void on_pushButton_19_clicked();
+
 private:
     Ui::adminControlForm *ui;
 
@@ -136,6 +171,9 @@ private:
     QHash<QString, QComboBox*> classTableItems;
     QHash<QString, QList<RelationDesc> > factionRelations;
     QHash<QString, QList<RelationDesc> > classRelations;
+
+    QHash<QString, QString> spells;
+    QHash<QString, SpellDescriptor> spell_descriptors;
 };
 
 #endif // ADMINCONTROLFORM_H

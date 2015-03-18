@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     helpers.cpp \
     classspecsdialog.cpp \
     newherodialog.cpp \
-    heropreviewwindow.cpp
+    heropreviewwindow.cpp \
+    spellrequirementsdialog.cpp \
+    spellscalesdialog.cpp
 
 HEADERS  += mainwindow.h \
     loginregisterdialog.h \
@@ -30,14 +32,18 @@ HEADERS  += mainwindow.h \
     helpers.h \
     classspecsdialog.h \
     newherodialog.h \
-    heropreviewwindow.h
+    heropreviewwindow.h \
+    spellrequirementsdialog.h \
+    spellscalesdialog.h
 
 FORMS    += mainwindow.ui \
     loginregisterdialog.ui \
     admincontrolform.ui \
     classspecsdialog.ui \
     newherodialog.ui \
-    heropreviewwindow.ui
+    heropreviewwindow.ui \
+    spellrequirementsdialog.ui \
+    spellscalesdialog.ui
 
 RESOURCES += \
     main.qrc

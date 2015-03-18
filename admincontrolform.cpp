@@ -9,6 +9,7 @@
 
 #include "admincontrolform.h"
 #include "classspecsdialog.h"
+#include "spellrequirementsdialog.h"
 #include "ui_admincontrolform.h"
 
 adminControlForm::adminControlForm(QWidget *parent) :
@@ -851,6 +852,103 @@ void adminControlForm::nextClassSave()
     }
 }
 
+void adminControlForm::loadSpellsForClassAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+    params["spell_class"] = ui->spell_class_combobox->currentText();
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(loadSpellsForClassResponse(QByteArray)));
+    server->call("admin spells",params);
+
+    setEnabled(false);
+    ui->status_label->setText("Loading spells List... ");
+}
+
+void adminControlForm::loadSpellsForClassResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            ui->spells_combobox->clear();
+            int spells_count = parser.getInt("spells_count");
+            for (int i=0; i<spells_count; i++)
+            {
+                QString it = QString::number(i);
+                QString spell_name = parser.first("spells["+it+"].spell_name");
+                QString spell_desc = parser.first("spells["+it+"].spell_desc");
+
+                spells[spell_name] = spell_desc;
+                spell_descriptors[spell_name] = SpellDescriptor::fromString(spell_desc);
+                ui->spells_combobox->addItem(parser.first("spells["+it+".spell_name"));
+                ui->status_label->setText("OK");
+
+            }
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+    setEnabled(true);
+}
+
+void adminControlForm::saveSpellForClassAction()
+{
+    SpellDescriptor spell;
+    spell.cd = ui->spell_cd->text();
+    spell.cost = ui->spell_cost->text();
+    spell.level_scales = ui->spell_level_scale->text();
+    spell.req = ui->spells_req->text();
+    spell.spell_name = ui->spells_spell_name->text();
+    spell.stat_scales = ui->spell_stats_scale->text();
+    QStringList effectList;
+    for (int i=0; i< ui->spell_effect_list->count(); i++)
+        effectList.append(ui->spell_effect_list->item(i)->text());
+    spell.effects = effectList;
+    QString spellDesc = spell.toString();
+
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+    params["sc"] = ui->spell_class_combobox->currentText();
+    params["sn"] = spell.spell_name;
+    params["d"] = spellDesc;
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(saveSpellForClassResponse(QByteArray)));
+    server->call("admin spells save",params);
+
+    setEnabled(false);
+    ui->status_label->setText("Saving spell... ");
+}
+
+void adminControlForm::saveSpellForClassResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            ui->status_label->setText("OK");
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+    setEnabled(true);
+}
+
 
 
 void adminControlForm::on_pushButton_clicked()
@@ -985,4 +1083,152 @@ void adminControlForm::on_pushButton_13_clicked()
         ui->class_specs->setText(dlg.data);
     else
         QMessageBox::information(this,"Specs rejected", "specs Rejected");
+}
+
+void adminControlForm::on_tabWidget_currentChanged(int index)
+{
+    //clicked on "SPELLS tab"
+    if (index == 5)
+    {
+        ui->spell_class_combobox->clear();
+        foreach (const QString& str, races)
+           ui->spell_class_combobox->addItem(str);
+        ui->spell_effect_combobox->clear();
+        ui->spell_effect_combobox->addItem("stun");
+        ui->spell_effect_combobox->addItem("dmg.hp");
+        ui->spell_effect_combobox->addItem("dmg.mana");
+        ui->spell_effect_combobox->addItem("dmg.both");
+        ui->spell_effect_combobox->addItem("heal.hp");
+        ui->spell_effect_combobox->addItem("heal.mana");
+        ui->spell_effect_combobox->addItem("heal.both");
+        ui->spell_effect_combobox->addItem("poison");
+        ui->spell_effect_combobox->addItem("shield.attack.1");
+        ui->spell_effect_combobox->addItem("shield.attack.2");
+        ui->spell_effect_combobox->addItem("shield.attack.3");
+        ui->spell_effect_combobox->addItem("shield.attack.99");
+        ui->spell_effect_combobox->addItem("shield.spell.1");
+        ui->spell_effect_combobox->addItem("shield.spell.2");
+        ui->spell_effect_combobox->addItem("shield.spell.3");
+        ui->spell_effect_combobox->addItem("shield.spell.99");
+        ui->spell_effect_combobox->addItem("shield.both.1");
+        ui->spell_effect_combobox->addItem("shield.both.2");
+        ui->spell_effect_combobox->addItem("shield.both.3");
+        ui->spell_effect_combobox->addItem("shield.both.4");
+        ui->spell_effect_combobox->addItem("buff.str");
+        ui->spell_effect_combobox->addItem("buff.dex");
+        ui->spell_effect_combobox->addItem("buff.mag");
+        ui->spell_effect_combobox->addItem("buff.int");
+        ui->spell_effect_combobox->addItem("buff.tra");
+        ui->spell_effect_combobox->addItem("buff.vel");
+        ui->spell_effect_combobox->addItem("buff.hp");
+        ui->spell_effect_combobox->addItem("buff.mana");
+        ui->spell_effect_combobox->addItem("debuff.str");
+        ui->spell_effect_combobox->addItem("debuff.dex");
+        ui->spell_effect_combobox->addItem("debuff.mag");
+        ui->spell_effect_combobox->addItem("debuff.int");
+        ui->spell_effect_combobox->addItem("debuff.tra");
+        ui->spell_effect_combobox->addItem("debuff.vel");
+        ui->spell_effect_combobox->addItem("debuff.hp");
+        ui->spell_effect_combobox->addItem("debuff.mana");
+        ui->spell_effect_combobox->addItem("disarm");
+        ui->spell_effect_combobox->addItem("cleanse");
+        loadSpellsForClassAction();
+    }
+}
+
+
+SpellDescriptor SpellDescriptor::fromString(QString str)
+{
+    str = str.replace("@", ",").replace("_", ";");
+    SpellDescriptor result;
+    //n:simple nuke with stun;r:i=10,m=8;e:dmg.hp=7,stun=1,dmg.mana:3;l:2,0.25,1,-0.25,5;s:0,0,0.1*STR|0.2*MAG;cd:3;c:15
+    QStringList tokens = str.split(";");
+    foreach (const QString& typeToken, tokens)
+    {
+        QStringList commandTokens = typeToken.split(":");
+        if (commandTokens.first() == "n")
+            result.spell_name = commandTokens.at(1);
+        else if (commandTokens.first() == "r")
+            result.req = commandTokens.at(1);
+        else if (commandTokens.first() == "l")
+            result.level_scales = commandTokens.at(1);
+        else if (commandTokens.first() == "s")
+            result.stat_scales = commandTokens.at(1);
+        else if (commandTokens.first() == "cd")
+            result.cd = commandTokens.at(1);
+        else if (commandTokens.first() == "c")
+            result.cost = commandTokens.at(1);
+        else if (commandTokens.first() == "e")
+        {
+            QStringList effectTokens = commandTokens.at(1).split(",");
+            foreach (const QString& effectToken, effectTokens)
+                result.effects.append(effectToken);
+        }
+    }
+    return result;
+}
+
+QString SpellDescriptor::toString()
+{
+    QString result = "n:"+spell_name+";r:"+req+";l:"+level_scales+";s:"+stat_scales+";cd:"+cd+";c:"+cost+";e:";
+    for(int i=0; i< effects.count(); ++i)
+    {
+        result += effects.at(i);
+        if (i != effects.count()-1)
+            result+=",";
+    }
+    result = result.replace(";","_").replace(",","2");
+    return result;
+}
+
+void adminControlForm::on_spells_combobox_currentIndexChanged(const QString &arg1)
+{
+    if (arg1 == "" || !spell_descriptors.contains(arg1))
+        return;
+    ui->spells_spell_name->setText(arg1);
+    ui->spells_req->setText(spell_descriptors[arg1].req);
+    ui->spell_cd->setValue(spell_descriptors[arg1].cd.toInt());
+    ui->spell_cost->setValue(spell_descriptors[arg1].cost.toInt());
+    ui->spell_level_scale->setText(spell_descriptors[arg1].level_scales);
+    ui->spell_stats_scale->setText(spell_descriptors[arg1].stat_scales);
+    ui->spell_effect_list->clear();
+    ui->spell_effect_list->addItems(spell_descriptors[arg1].effects);
+}
+
+void adminControlForm::on_spell_effect_list_currentRowChanged(int currentRow)
+{
+    QStringList effectTokens = ui->spell_effect_list->item(currentRow)->text().split("=");
+    ui->spells_combobox->setCurrentIndex(ui->spells_combobox->findText(effectTokens.first()));
+    ui->spell_value->setText(effectTokens.at(1));
+}
+
+void adminControlForm::on_new_effect_clicked()
+{
+    if (ui->spell_value->text() != "")
+    {
+        ui->spell_effect_list->addItem(ui->spell_effect_combobox->currentText() + "=" + ui->spell_value->text());
+        ui->spell_value->setText("");
+    }
+}
+
+void adminControlForm::on_update_effect_clicked()
+{
+    if (ui->spell_value->text() != "")
+    {
+        ui->spell_effect_list->currentItem()->setText(ui->spell_effect_combobox->currentText() + "=" + ui->spell_value->text());
+    }
+}
+
+void adminControlForm::on_pushButton_14_clicked()
+{
+    SpellRequirementsDialog dlg;
+    if (dlg.exec())
+    {
+        ui->spells_req->setText(dlg.getReq());
+    }
+}
+
+void adminControlForm::on_pushButton_19_clicked()
+{
+    saveSpellForClassAction();
 }
