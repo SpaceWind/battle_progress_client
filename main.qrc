@@ -4,5 +4,7 @@
         <file>assets/load.png</file>
         <file>assets/save.png</file>
         <file>assets/roll.png</file>
+        <file>assets/new.png</file>
+        <file>assets/create.png</file>
     </qresource>
 </RCC>

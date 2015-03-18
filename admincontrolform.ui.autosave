@@ -949,7 +949,7 @@ QTabBar::tab:hover {
            </property>
            <layout class="QGridLayout" name="gridLayout_6">
             <item row="0" column="0">
-             <widget class="QListWidget" name="listWidget"/>
+             <widget class="QListWidget" name="spell_effect_list"/>
             </item>
            </layout>
           </widget>
@@ -975,7 +975,7 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="lineEdit_4"/>
+             <widget class="QLineEdit" name="spell_level_scale"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_29">
@@ -992,7 +992,7 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_5"/>
+             <widget class="QLineEdit" name="spell_stats_scale"/>
             </item>
            </layout>
           </widget>
@@ -1004,7 +1004,7 @@ QTabBar::tab:hover {
            </property>
            <layout class="QGridLayout" name="gridLayout_7">
             <item row="2" column="1" colspan="2">
-             <widget class="QSpinBox" name="spinBox">
+             <widget class="QSpinBox" name="spell_cd">
               <property name="minimum">
                <number>1</number>
               </property>
@@ -1025,7 +1025,7 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="3" column="1" colspan="2">
-             <widget class="QSpinBox" name="spinBox_2">
+             <widget class="QSpinBox" name="spell_cost">
               <property name="maximum">
                <number>500</number>
               </property>
@@ -1038,7 +1038,7 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="0" column="1" colspan="2">
-             <widget class="QLineEdit" name="lineEdit_2"/>
+             <widget class="QLineEdit" name="spells_spell_name"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_25">
@@ -1055,7 +1055,7 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_3"/>
+             <widget class="QLineEdit" name="spells_req"/>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_26">
@@ -1088,10 +1088,10 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_7"/>
+             <widget class="QLineEdit" name="spell_value"/>
             </item>
             <item row="2" column="0">
-             <widget class="QPushButton" name="pushButton_17">
+             <widget class="QPushButton" name="new_effect">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -1114,7 +1114,7 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QPushButton" name="pushButton_18">
+             <widget class="QPushButton" name="update_effect">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -1137,7 +1137,7 @@ QTabBar::tab:hover {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_3"/>
+             <widget class="QComboBox" name="spell_effect_combobox"/>
             </item>
            </layout>
           </widget>
@@ -1160,7 +1160,7 @@ QTabBar::tab:hover {
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="spell_class_combobox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1183,7 +1183,7 @@ QTabBar::tab:hover {
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox_2">
+          <widget class="QComboBox" name="spells_combobox">
            <property name="editable">
             <bool>true</bool>
            </property>

@@ -1,4 +1,5 @@
 #include <QPropertyAnimation>
+#include <QGraphicsDropShadowEffect>
 #include "heropreviewwindow.h"
 #include "ui_heropreviewwindow.h"
 
@@ -7,6 +8,10 @@ heroPreviewWindow::heroPreviewWindow(QWidget *parent) :
     ui(new Ui::heroPreviewWindow)
 {
     ui->setupUi(this);
+    QGraphicsDropShadowEffect* effect = new QGraphicsDropShadowEffect(this);
+    effect->setOffset(-5, -5);
+    effect->setColor(Qt::yellow);
+    ui->manabar->setGraphicsEffect(effect);
 }
 
 heroPreviewWindow::~heroPreviewWindow()

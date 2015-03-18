@@ -239,9 +239,22 @@
       </item>
       <item row="13" column="1" colspan="3">
        <widget class="QProgressBar" name="manabar">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>8</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">QProgressBar::chunk {
-     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(27, 67, 194, 236), stop:0.318182 rgba(206, 206, 219, 241), stop:0.505682 rgba(180, 164, 255, 255), stop:0.977273 rgba(41, 8, 189, 230));
+     background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(27, 67, 194, 236), stop:0.318182 rgba(206, 206, 219, 241), stop:0.505682 rgba(180, 164, 255, 255), stop:0.977273 rgba(15, 15, 189, 230));
      width: 1px;
  }
 
@@ -249,7 +262,7 @@
      border: 2px solid grey;
      border-radius: 5px;
 	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(165, 162, 114, 255), stop:0.318409 rgba(230, 230, 255, 221), stop:1 rgba(156, 123, 123, 255));
-		color: #FFF;
+		color: #00A;
 	font-weight: bold;
      text-align: center;
  }
@@ -282,9 +295,10 @@
      border-radius: 5px;
      text-align: center;
 	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(165, 162, 114, 255), stop:0.318409 rgba(255, 230, 230, 221), stop:1 rgba(156, 123, 123, 255));
-	color: #FF3;
+	color: #000;
 	font-weight: bold;
      text-align: center;
+	text-shadow: 2px 2px #fff;
  }
 </string>
         </property>
