@@ -6,5 +6,6 @@
         <file>assets/roll.png</file>
         <file>assets/new.png</file>
         <file>assets/create.png</file>
+        <file>assets/delete.ico</file>
     </qresource>
 </RCC>

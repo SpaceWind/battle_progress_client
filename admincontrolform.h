@@ -106,6 +106,9 @@ private slots:
     void saveSpellForClassAction();
     void saveSpellForClassResponse(QByteArray response);
 
+    void destroySpellAction();
+    void destroySpellResponse(QByteArray response);
+
 
     //----------------------Handlers-----------------------------------------------------------------------------
     void on_pushButton_clicked();
@@ -152,6 +155,16 @@ private slots:
 
     void on_pushButton_19_clicked();
 
+    void on_spell_class_combobox_currentIndexChanged(const QString &arg1);
+
+    void on_pushButton_18_clicked();
+
+    void on_pushButton_15_clicked();
+
+    void on_pushButton_16_clicked();
+
+    void on_pushButton_17_clicked();
+
 private:
     Ui::adminControlForm *ui;
 
@@ -175,5 +188,6 @@ private:
     QHash<QString, QString> spells;
     QHash<QString, SpellDescriptor> spell_descriptors;
 };
+
 
 #endif // ADMINCONTROLFORM_H
