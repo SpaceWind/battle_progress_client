@@ -15,6 +15,9 @@ CustomDropListComboBox::CustomDropListComboBox(QWidget *parent) : QComboBox(pare
     QFont font = view()->font();
     font.setPointSize(14);
     view()->setFont(font);
+    this->setStyleSheet(QString("QComboBox QAbstractItemView {\n	border-radius: 6px;\n    border: 2px solid darkgray;\n") +
+                        QString("selection-background-color: orange;\n}\n\n") +
+                        QString("QComboBox QAbstractItemView::item {\nmin-height: 28px;\nmargin-top: 3px;\n}\n"));
 }
 
 void CustomDropListComboBox::showPopup()
@@ -29,6 +32,6 @@ void CustomDropListComboBox::showPopup()
 
 
 
-    view()->setFixedWidth(maxWidth-28);
+    view()->setFixedWidth(std::max(maxWidth-28, width()));
     QComboBox::showPopup();
 }
