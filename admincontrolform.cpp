@@ -993,6 +993,233 @@ void adminControlForm::destroySpellResponse(QByteArray response)
     setEnabled(true);
 }
 
+void adminControlForm::getCreaturesInfoAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(getCreaturesInfoResponse(QByteArray)));
+    server->call("admin creatures",params);
+
+    setEnabled(false);
+    ui->status_label->setText("Loading creatures info...");
+}
+
+void adminControlForm::getCreaturesInfoResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            mods.clear();
+            ui->creature_mod->clear();
+            int modsCount = parser.getInt("mods_count");
+            for (int i=0; i<modsCount; i++)
+            {
+                QString maleMod = parser.first("mods_male[" + QString::number(i) + "].value");
+                QString femaleMod = parser.first("mods_female[" + QString::number(i) + "].value");
+                mods["male"][maleMod] = parser.first("mods_male[" + QString::number(i) + "].item");
+                mods["female"][femaleMod] = parser.first("mods_female[" + QString::number(i) + "].item");
+
+                if (ui->creature_gender->isChecked())
+                    ui->creature_mod->addItem(femaleMod);
+                else
+                    ui->creature_mod->addItem(maleMod);
+            }
+
+            allSpells.clear();
+            ui->creature_spell_combobox->clear();
+            int allSpellsCount = parser.getInt("all_spells_count");
+            for (int i=0; i< allSpellsCount; i++)
+            {
+                SpellDescriptor s;
+                QString spellName, spellClass;
+                spellName = parser.first("all_spells[" + QString::number(i) + "].spell_name");
+                spellClass = parser.first("all_spells[" + QString::number(i) + "].spell_class");
+                s.spell_name = spellName;
+                s.spell_class = spellClass;
+                allSpells[spellClass + ":" + spellName] = s;
+                ui->creature_spell_combobox->addItem(spellClass + ":" + spellName);
+            }
+
+            creatures.clear();
+            creatureSpells.clear();
+            ui->creatures_combobox->clear();
+            int creaturesCount = parser.getInt("creature_count");
+            for (int i=0; i<creaturesCount; i++)
+            {
+                CreatureDescriptor c;
+                QString creatureName = parser.first("creatures[" + QString::number(i) + "].creature_name");
+                if (creatureName == "")
+                    continue;
+                c.creatureName = creatureName;
+                c.creatureType = "creature";
+                c.dex = parser.getInt("creatures[" + QString::number(i) + "].dex");
+                c.str = parser.getInt("creatures[" + QString::number(i) + "].str");
+                c.mag = parser.getInt("creatures[" + QString::number(i) + "].mag");
+                c.intel = parser.getInt("creatures[" + QString::number(i) + "].int");
+                c.tra = parser.getInt("creatures[" + QString::number(i) + "].tra");
+                c.vel = parser.getInt("creatures[" + QString::number(i) + "].vel");
+                c.hp = parser.getInt("creatures[" + QString::number(i) + "].hp");
+                c.mana = parser.getInt("creatures[" + QString::number(i) + "].mana");
+                c.gender = parser.first("creatures[" + QString::number(i) + "].gender");
+                c.mod = parser.first("creatures[" + QString::number(i) + "].mod");
+                creatures[creatureName] = c;
+                ui->creatures_combobox->addItem(creatureName);
+
+                QList<SpellDescriptor> currentCreatureSpells;
+                int creatureSpellCount = parser.getInt("creature_spells."+creatureName+".spell_count");
+                for (int j=0; j<creatureSpellCount; i++)
+                {
+                    SpellDescriptor spell;
+                    spell.spell_class = parser.first("creature_spells."+creatureName+".spells["+QString::number(j)+"].spell_class");
+                    spell.spell_name = parser.first("creature_spells."+creatureName+".spells["+QString::number(j)+"].spell_name");
+                    currentCreatureSpells.append(spell);
+                }
+                if (!currentCreatureSpells.isEmpty())
+                    creatureSpells[creatureName] = currentCreatureSpells;
+            }
+
+            prefixes.clear();
+            prefixSpells.clear();
+            ui->creature_prefixes->clear();
+            int prefixesCount = parser.getInt("prefixes_count");
+            for (int i=0; i<prefixesCount; i++)
+            {
+                CreatureDescriptor c;
+                QString creatureName = parser.first("prefixes[" + QString::number(i) + "].creature_name");
+                c.creatureName = creatureName;
+                c.creatureType = "prefix";
+                c.dex = parser.getInt("prefixes" + QString::number(i) + "].dex");
+                c.str = parser.getInt("prefixes" + QString::number(i) + "].str");
+                c.mag = parser.getInt("prefixes" + QString::number(i) + "].mag");
+                c.intel = parser.getInt("prefixes" + QString::number(i) + "].int");
+                c.tra = parser.getInt("prefixes" + QString::number(i) + "].tra");
+                c.vel = parser.getInt("prefixes" + QString::number(i) + "].vel");
+                c.hp = parser.getInt("prefixes" + QString::number(i) + "].hp");
+                c.mana = parser.getInt("prefixes" + QString::number(i) + "].mana");
+                c.gender = parser.first("prefixes" + QString::number(i) + "].gender");
+                c.mod = parser.first("prefixes" + QString::number(i) + "].mod");
+                prefixes[creatureName] = c;
+                ui->creature_prefixes->addItem(creatureName);
+
+
+                QList<SpellDescriptor> currentPrefixSpells;
+                int prefixSpellCount = parser.getInt("prefix_spells."+creatureName+".spell_count");
+                for (int j=0; j<prefixSpellCount; i++)
+                {
+                    SpellDescriptor spell;
+                    spell.spell_class = parser.first("prefix_spells."+creatureName+".spells["+QString::number(j)+"].spell_class");
+                    spell.spell_name = parser.first("prefix_spells."+creatureName+".spells["+QString::number(j)+"].spell_name");
+                    currentPrefixSpells.append(spell);
+                }
+                if (!currentPrefixSpells.isEmpty())
+                    prefixSpells[creatureName] = currentPrefixSpells;
+            }
+
+            suffixes.clear();
+            suffixSpells.clear();
+            ui->creature_suffixes->clear();
+
+            int suffixCount = parser.getInt("suffix_count");
+            for (int i=0; i<suffixCount; i++)
+            {
+                CreatureDescriptor c;
+                QString creatureName = parser.first("suffixes[" + QString::number(i) + "].creature_name");
+                c.creatureName = creatureName;
+                c.creatureType = "creature";
+                c.dex = parser.getInt("suffixes" + QString::number(i) + "].dex");
+                c.str = parser.getInt("suffixes" + QString::number(i) + "].str");
+                c.mag = parser.getInt("suffixes" + QString::number(i) + "].mag");
+                c.intel = parser.getInt("suffixes" + QString::number(i) + "].int");
+                c.tra = parser.getInt("suffixes" + QString::number(i) + "].tra");
+                c.vel = parser.getInt("suffixes" + QString::number(i) + "].vel");
+                c.hp = parser.getInt("suffixes" + QString::number(i) + "].hp");
+                c.mana = parser.getInt("suffixes" + QString::number(i) + "].mana");
+                c.gender = parser.first("suffixes" + QString::number(i) + "].gender");
+                c.mod = parser.first("suffixes" + QString::number(i) + "].mod");
+                suffixes[creatureName] = c;
+                ui->creature_suffixes->addItem(creatureName);
+
+                QList<SpellDescriptor> currentSuffixSpells;
+                int suffixSpellCount = parser.getInt("suffix_spells."+creatureName+".spell_count");
+                for (int j=0; j<suffixSpellCount; i++)
+                {
+                    SpellDescriptor spell;
+                    spell.spell_class = parser.first("suffix_spells."+creatureName+".spells["+QString::number(j)+"].spell_class");
+                    spell.spell_name = parser.first("suffix_spells."+creatureName+".spells["+QString::number(j)+"].spell_name");
+                    currentSuffixSpells.append(spell);
+                }
+                if (!currentSuffixSpells.isEmpty())
+                    suffixSpells[creatureName] = currentSuffixSpells;
+            }
+
+            ui->status_label->setText("OK");
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+    setEnabled(true);
+}
+
+void adminControlForm::saveCreatureAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+    params["creature_type"] = "creature";
+    params["creature_name"] = ui->creatures_combobox->currentText();
+    if (ui->creatures_combobox->currentText() != ui->creature_name->text())
+        params["rename"] = ui->creature_name->text();
+    params["mod"] = ui->creature_gender->isChecked() ?
+                mods["female"][ui->creature_mod->currentText()] :
+                mods["male"][ui->creature_mod->currentText()];
+    params["gender"] = ui->creature_gender->isChecked() ? "female" : "male";
+    params["str"] = QString::number(ui->creature_stats_str->value());
+    params["dex"] = QString::number(ui->creature_stats_str->value());
+    params["mag"] = QString::number(ui->creature_stats_str->value());
+    params["int"] = QString::number(ui->creature_stats_str->value());
+    params["tra"] = QString::number(ui->creature_stats_str->value());
+    params["vel"] = QString::number(ui->creature_stats_str->value());
+    params["hp"] = QString::number(ui->creature_stats_str->value());
+    params["mana"] = QString::number(ui->creature_stats_str->value());
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(saveCreatureResponse(QByteArray)));
+    server->call("admin creatures save",params);
+
+    setEnabled(false);
+    ui->status_label->setText("Saving Creature...");
+}
+
+void adminControlForm::saveCreatureResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            ui->status_label->setText("OK");
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+    setEnabled(true);
+}
+
 
 
 void adminControlForm::on_pushButton_clicked()
@@ -1189,6 +1416,10 @@ void adminControlForm::on_tabWidget_currentChanged(int index)
 
         loadSpellsForClassAction();
     }
+    else if (index == 6)
+    {
+        getCreaturesInfoAction();
+    }
 }
 
 
@@ -1349,4 +1580,26 @@ void adminControlForm::on_pushButton_16_clicked()
 void adminControlForm::on_pushButton_17_clicked()
 {
     destroySpellAction();
+}
+
+void adminControlForm::on_creature_gender_clicked(bool checked)
+{
+    int prevIndex = ui->creature_mod->currentIndex();
+    ui->creature_mod->clear();
+    if (checked)
+        for(QMap<QString,QString>::iterator it = mods["female"].begin(); it != mods["female"].end(); ++it)
+        {
+            ui->creature_mod->addItem(it.key());
+        }
+    else
+        for(QMap<QString,QString>::iterator it = mods["male"].begin(); it != mods["male"].end(); ++it)
+        {
+            ui->creature_mod->addItem(it.key());
+        }
+    ui->creature_mod->setCurrentIndex(prevIndex);
+}
+
+void adminControlForm::on_creature_save_clicked()
+{
+    saveCreatureAction();
 }

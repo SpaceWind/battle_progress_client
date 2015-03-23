@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QHash>
+#include <QList>
+#include <QMap>
 #include "helpers.h"
 #include "gameserver.h"
 
@@ -33,6 +35,14 @@ struct SpellDescriptor
     QString req;
     QString level_scales;
     QString stat_scales;
+};
+
+struct CreatureDescriptor
+{
+    QString creatureName;
+    QString creatureType;
+    QString mod, gender;
+    int str, dex, mag, intel, tra, vel, hp, mana;
 };
 
 
@@ -109,6 +119,13 @@ private slots:
     void destroySpellAction();
     void destroySpellResponse(QByteArray response);
 
+    void getCreaturesInfoAction();
+    void getCreaturesInfoResponse(QByteArray response);
+
+    void saveCreatureAction();
+    void saveCreatureResponse(QByteArray response);
+
+
 
     //----------------------Handlers-----------------------------------------------------------------------------
     void on_pushButton_clicked();
@@ -165,6 +182,10 @@ private slots:
 
     void on_pushButton_17_clicked();
 
+    void on_creature_gender_clicked(bool checked);
+
+    void on_creature_save_clicked();
+
 private:
     Ui::adminControlForm *ui;
 
@@ -187,6 +208,18 @@ private:
 
     QHash<QString, QString> spells;
     QHash<QString, SpellDescriptor> spell_descriptors;
+
+
+    //Creatures Info
+    QHash<QString, QMap<QString, QString> > mods; //[male][1..10]
+    QHash<QString, QList<SpellDescriptor> > creatureSpells;  //[monster]
+    QHash<QString, QList<SpellDescriptor> > prefixSpells;  //[monster]
+    QHash<QString, QList<SpellDescriptor> > suffixSpells;  //[monster]
+    QHash<QString, CreatureDescriptor> creatures;
+    QHash<QString, CreatureDescriptor> prefixes;
+    QHash<QString, CreatureDescriptor> suffixes;
+    QHash<QString, SpellDescriptor> allSpells;
+
 };
 
 

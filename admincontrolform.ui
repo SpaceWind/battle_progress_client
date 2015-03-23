@@ -1300,7 +1300,7 @@ QTabBar::tab:hover {
          </property>
          <layout class="QGridLayout" name="gridLayout_12">
           <item row="3" column="0">
-           <widget class="QPushButton" name="pushButton_20">
+           <widget class="QPushButton" name="creature_spell_add">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1330,7 +1330,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QPushButton" name="pushButton_21">
+           <widget class="QPushButton" name="creature_spell_save">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -1353,7 +1353,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QPushButton" name="pushButton_22">
+           <widget class="QPushButton" name="creature_spell_remove">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -1376,10 +1376,10 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="0" column="0" colspan="3">
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListWidget" name="creature_spell_list"/>
           </item>
           <item row="1" column="1" colspan="2">
-           <widget class="QComboBox" name="comboBox_3">
+           <widget class="QComboBox" name="creature_spell_combobox">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -1410,7 +1410,7 @@ QTabBar::tab:hover {
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QComboBox" name="comboBox">
+        <widget class="QComboBox" name="creatures_combobox">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -1436,7 +1436,7 @@ QTabBar::tab:hover {
         </widget>
        </item>
        <item row="0" column="5">
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="creature_name">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -1479,10 +1479,10 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QSpinBox" name="spinBox_6"/>
+           <widget class="QSpinBox" name="creature_stats_vel"/>
           </item>
           <item row="6" column="1">
-           <widget class="QSpinBox" name="spinBox_7"/>
+           <widget class="QSpinBox" name="creature_stats_hp"/>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_37">
@@ -1492,7 +1492,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox"/>
+           <widget class="QSpinBox" name="creature_stats_str"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_38">
@@ -1502,7 +1502,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSpinBox" name="spinBox_2"/>
+           <widget class="QSpinBox" name="creature_stats_dex"/>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_39">
@@ -1512,7 +1512,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="spinBox_3"/>
+           <widget class="QSpinBox" name="creature_stats_mag"/>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_40">
@@ -1522,7 +1522,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QSpinBox" name="spinBox_4"/>
+           <widget class="QSpinBox" name="creature_stats_int"/>
           </item>
           <item row="4" column="0">
            <widget class="QLabel" name="label_41">
@@ -1532,7 +1532,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QSpinBox" name="spinBox_5"/>
+           <widget class="QSpinBox" name="creature_stats_tra"/>
           </item>
           <item row="7" column="0">
            <widget class="QLabel" name="label_44">
@@ -1542,13 +1542,13 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="7" column="1">
-           <widget class="QSpinBox" name="spinBox_8"/>
+           <widget class="QSpinBox" name="creature_stats_mana"/>
           </item>
          </layout>
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QComboBox" name="comboBox_2">
+        <widget class="QComboBox" name="creature_mod">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -1564,7 +1564,7 @@ QTabBar::tab:hover {
         </widget>
        </item>
        <item row="0" column="6">
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="creature_gender">
          <property name="text">
           <string>Female</string>
          </property>
@@ -1596,7 +1596,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton_23">
+           <widget class="QPushButton" name="creature_suffix_new">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1619,7 +1619,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_24">
+           <widget class="QPushButton" name="creature_suffix_save">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1642,7 +1642,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QPushButton" name="pushButton_25">
+           <widget class="QPushButton" name="creature_suffix_remove">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1665,7 +1665,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="0" column="1" colspan="2">
-           <widget class="QComboBox" name="comboBox_4">
+           <widget class="QComboBox" name="creature_suffixes">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1704,7 +1704,7 @@ QTabBar::tab:hover {
          </property>
          <layout class="QGridLayout" name="gridLayout_15">
           <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_27">
+           <widget class="QPushButton" name="creature_prefix_save">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1727,7 +1727,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton_26">
+           <widget class="QPushButton" name="creature_prefix_new">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1757,7 +1757,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QPushButton" name="pushButton_28">
+           <widget class="QPushButton" name="creature_prefix_remove">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1780,7 +1780,7 @@ QTabBar::tab:hover {
            </widget>
           </item>
           <item row="0" column="1" colspan="2">
-           <widget class="QComboBox" name="comboBox_5">
+           <widget class="QComboBox" name="creature_prefixes">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -1801,7 +1801,7 @@ QTabBar::tab:hover {
         </widget>
        </item>
        <item row="4" column="3" colspan="4">
-        <widget class="QPushButton" name="pushButton_30">
+        <widget class="QPushButton" name="creature_remove">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -1824,7 +1824,7 @@ QTabBar::tab:hover {
         </widget>
        </item>
        <item row="4" column="0" colspan="3">
-        <widget class="QPushButton" name="pushButton_29">
+        <widget class="QPushButton" name="creature_save">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
