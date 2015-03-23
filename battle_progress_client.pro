@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     newherodialog.cpp \
     heropreviewwindow.cpp \
     spellrequirementsdialog.cpp \
-    spellscalesdialog.cpp
+    spellscalesdialog.cpp \
+    customdroplistcombobox.cpp
 
 HEADERS  += mainwindow.h \
     loginregisterdialog.h \
@@ -34,7 +35,8 @@ HEADERS  += mainwindow.h \
     newherodialog.h \
     heropreviewwindow.h \
     spellrequirementsdialog.h \
-    spellscalesdialog.h
+    spellscalesdialog.h \
+    customdroplistcombobox.h
 
 FORMS    += mainwindow.ui \
     loginregisterdialog.ui \

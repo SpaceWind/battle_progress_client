@@ -7,6 +7,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QClipboard>
+#include <QStyledItemDelegate>
 
 #include "admincontrolform.h"
 #include "classspecsdialog.h"
@@ -21,6 +22,10 @@ adminControlForm::adminControlForm(QWidget *parent) :
     ui->setupUi(this);
     server = 0;
     lastDescIndex = 0;
+
+    QStyledItemDelegate* itemDelegate = new QStyledItemDelegate();
+    ui->creature_spell_combobox->setItemDelegate(itemDelegate);
+
 }
 
 void adminControlForm::setUser(currentUserInfo &info)
@@ -1219,6 +1224,8 @@ void adminControlForm::saveCreatureResponse(QByteArray response)
     }
     setEnabled(true);
 }
+
+
 
 
 

@@ -1352,6 +1352,37 @@ QTabBar::tab:hover {
             </property>
            </widget>
           </item>
+          <item row="0" column="0" colspan="3">
+           <widget class="QListWidget" name="creature_spell_list"/>
+          </item>
+          <item row="1" column="1" colspan="2">
+           <widget class="CustomDropListComboBox" name="creature_spell_combobox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox QAbstractItemView {
+	border-radius: 6px;
+    border: 2px solid darkgray;
+    selection-background-color: orange;
+}
+
+QComboBox QAbstractItemView::item {
+min-height: 10px;
+margin-top: 3px;
+}
+</string>
+            </property>
+           </widget>
+          </item>
           <item row="3" column="2">
            <widget class="QPushButton" name="creature_spell_remove">
             <property name="sizePolicy">
@@ -1375,28 +1406,33 @@ QTabBar::tab:hover {
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QListWidget" name="creature_spell_list"/>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QComboBox" name="creature_spell_combobox">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
-       <item row="0" column="4">
+       <item row="4" column="4" colspan="4">
+        <widget class="QPushButton" name="creature_remove">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Remove</string>
+         </property>
+         <property name="icon">
+          <iconset resource="main.qrc">
+           <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>48</width>
+           <height>48</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
         <widget class="QLabel" name="label_47">
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
@@ -1435,7 +1471,30 @@ QTabBar::tab:hover {
          </property>
         </widget>
        </item>
-       <item row="0" column="5">
+       <item row="4" column="0" colspan="4">
+        <widget class="QPushButton" name="creature_save">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>SAVE</string>
+         </property>
+         <property name="icon">
+          <iconset resource="main.qrc">
+           <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>48</width>
+           <height>48</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
         <widget class="QLineEdit" name="creature_name">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -1445,132 +1504,14 @@ QTabBar::tab:hover {
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
+       <item row="0" column="3">
         <widget class="QLabel" name="label_35">
          <property name="text">
           <string>Modificator:</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="2" rowspan="2" colspan="2">
-        <widget class="QGroupBox" name="groupBox_10">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="title">
-          <string>Stats</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_13">
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_43">
-            <property name="text">
-             <string>HP:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_42">
-            <property name="text">
-             <string>VEL:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QSpinBox" name="creature_stats_vel"/>
-          </item>
-          <item row="6" column="1">
-           <widget class="QSpinBox" name="creature_stats_hp"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_37">
-            <property name="text">
-             <string>STR:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="creature_stats_str"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_38">
-            <property name="text">
-             <string>DEX:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="creature_stats_dex"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_39">
-            <property name="text">
-             <string>MAG:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="creature_stats_mag"/>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_40">
-            <property name="text">
-             <string>INT:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="creature_stats_int"/>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_41">
-            <property name="text">
-             <string>TRA:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QSpinBox" name="creature_stats_tra"/>
-          </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_44">
-            <property name="text">
-             <string>MANA:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QSpinBox" name="creature_stats_mana"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QComboBox" name="creature_mod">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>140</width>
-           <height>0</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <widget class="QCheckBox" name="creature_gender">
-         <property name="text">
-          <string>Female</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="4" colspan="3">
+       <item row="2" column="5" colspan="3">
         <widget class="QGroupBox" name="groupBox_11">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -1685,7 +1626,7 @@ QTabBar::tab:hover {
          </layout>
         </widget>
        </item>
-       <item row="3" column="4" colspan="3">
+       <item row="3" column="5" colspan="3">
         <widget class="QGroupBox" name="groupBox_12">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -1800,48 +1741,120 @@ QTabBar::tab:hover {
          </layout>
         </widget>
        </item>
-       <item row="4" column="3" colspan="4">
-        <widget class="QPushButton" name="creature_remove">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="0" column="7">
+        <widget class="QCheckBox" name="creature_gender">
          <property name="text">
-          <string>Remove</string>
-         </property>
-         <property name="icon">
-          <iconset resource="main.qrc">
-           <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>48</width>
-           <height>48</height>
-          </size>
+          <string>Female</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="3">
-        <widget class="QPushButton" name="creature_save">
+       <item row="2" column="3" rowspan="2" colspan="2">
+        <widget class="QGroupBox" name="groupBox_10">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="text">
-          <string>SAVE</string>
+         <property name="title">
+          <string>Stats</string>
          </property>
-         <property name="icon">
-          <iconset resource="main.qrc">
-           <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
+         <layout class="QGridLayout" name="gridLayout_13">
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_43">
+            <property name="text">
+             <string>HP:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_42">
+            <property name="text">
+             <string>VEL:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QSpinBox" name="creature_stats_vel"/>
+          </item>
+          <item row="6" column="1">
+           <widget class="QSpinBox" name="creature_stats_hp"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_37">
+            <property name="text">
+             <string>STR:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="creature_stats_str"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_38">
+            <property name="text">
+             <string>DEX:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="creature_stats_dex"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_39">
+            <property name="text">
+             <string>MAG:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="creature_stats_mag"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_40">
+            <property name="text">
+             <string>INT:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="creature_stats_int"/>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_41">
+            <property name="text">
+             <string>TRA:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QSpinBox" name="creature_stats_tra"/>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label_44">
+            <property name="text">
+             <string>MANA:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QSpinBox" name="creature_stats_mana"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QComboBox" name="creature_mod">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="iconSize">
+         <property name="minimumSize">
           <size>
-           <width>48</width>
-           <height>48</height>
+           <width>140</width>
+           <height>0</height>
           </size>
          </property>
         </widget>
@@ -1852,6 +1865,13 @@ QTabBar::tab:hover {
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CustomDropListComboBox</class>
+   <extends>QComboBox</extends>
+   <header>customdroplistcombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="main.qrc"/>
  </resources>
