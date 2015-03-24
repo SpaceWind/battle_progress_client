@@ -1301,6 +1301,12 @@ QTabBar::tab:hover {
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="maximumSize">
+          <size>
+           <width>500</width>
+           <height>100</height>
+          </size>
+         </property>
          <property name="text">
           <string>SAVE</string>
          </property>
@@ -1316,31 +1322,14 @@ QTabBar::tab:hover {
          </property>
         </widget>
        </item>
-       <item row="3" column="2" colspan="7">
-        <widget class="QPushButton" name="creature_remove">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Remove</string>
-         </property>
-         <property name="icon">
-          <iconset resource="main.qrc">
-           <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>48</width>
-           <height>48</height>
-          </size>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0" rowspan="2">
         <widget class="QGroupBox" name="groupBox_11">
+         <property name="maximumSize">
+          <size>
+           <width>500</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="title">
           <string>Meta Info</string>
          </property>
@@ -1589,6 +1578,12 @@ QTabBar::tab:hover {
            <height>0</height>
           </size>
          </property>
+         <property name="maximumSize">
+          <size>
+           <width>500</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="title">
           <string>Stats</string>
          </property>
@@ -1772,29 +1767,6 @@ QTabBar::tab:hover {
          </layout>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QPushButton" name="creature_reload">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>RELOAD</string>
-         </property>
-         <property name="icon">
-          <iconset resource="main.qrc">
-           <normaloff>:/assets/refresh.ico</normaloff>:/assets/refresh.ico</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>48</width>
-           <height>48</height>
-          </size>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1" rowspan="2" colspan="3">
         <widget class="QGroupBox" name="groupBox_9">
          <property name="title">
@@ -1902,6 +1874,64 @@ margin-top: 3px;
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="3" column="4" colspan="5">
+        <widget class="QPushButton" name="creature_remove">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>500</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Remove</string>
+         </property>
+         <property name="icon">
+          <iconset resource="main.qrc">
+           <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>48</width>
+           <height>48</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="3">
+        <widget class="QPushButton" name="creature_reload">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>500</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>RELOAD</string>
+         </property>
+         <property name="icon">
+          <iconset resource="main.qrc">
+           <normaloff>:/assets/refresh.ico</normaloff>:/assets/refresh.ico</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>48</width>
+           <height>48</height>
+          </size>
+         </property>
         </widget>
        </item>
       </layout>

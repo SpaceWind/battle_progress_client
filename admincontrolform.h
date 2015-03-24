@@ -130,7 +130,7 @@ private slots:
     //----------------------Handlers-----------------------------------------------------------------------------
     void on_pushButton_clicked();
 
-    void on_found_heroes_currentIndexChanged(int index);
+    void on_found_heroes_currentIndexChanged(int);
 
     void on_pushButton_4_clicked();
 
@@ -172,7 +172,7 @@ private slots:
 
     void on_pushButton_19_clicked();
 
-    void on_spell_class_combobox_currentIndexChanged(const QString &arg1);
+    void on_spell_class_combobox_currentIndexChanged(const QString &);
 
     void on_pushButton_18_clicked();
 
@@ -188,13 +188,20 @@ private slots:
 
     void on_creatures_combobox_currentIndexChanged(const QString &arg1);
 
-    void on_creature_mod_currentIndexChanged(const QString &arg1);
+    void on_creature_mod_currentIndexChanged(const QString &);
+
+    void on_creature_gender_male_clicked();
+
+    void on_creature_gender_female_clicked();
+
+    void on_creature_gender_na_clicked();
 
 private:
 
     //helpers
     QString getCurrentMod();
     void renderCreature(QString creatureType, QString creatureMod, QString creatureName);
+    void setCurrentGender(QString gender);
 
     //private data members
     Ui::adminControlForm *ui;
