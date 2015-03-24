@@ -1695,14 +1695,16 @@ void adminControlForm::on_creatures_combobox_currentIndexChanged(const QString &
 {
     QString creatureType = ui->creature_type_combobox->currentText();
     ui->creature_name->setText(arg1);
-    if (creatureType == "creature")
-        setCurrentGender(creatures[arg1 + ":" + ui->creature_mod->currentText()].gender);
-    else if (creatureType == "prefix")
-        setCurrentGender(prefixes[arg1 + ":" + ui->creature_mod->currentText()].gender);
-    else
-        setCurrentGender(suffixes[arg1 + ":" + ui->creature_mod->currentText()].gender);
+    QString currentMod = getCurrentMod();
 
-    renderCreature(creatureType, getCurrentMod(), arg1);
+    if (creatureType == "creature")
+        setCurrentGender(creatures[arg1 + ":" + currentMod].gender);
+    else if (creatureType == "prefix")
+        setCurrentGender(prefixes[arg1 + ":" + currentMod].gender);
+    else
+        setCurrentGender(suffixes[arg1 + ":" + currentMod].gender);
+
+    renderCreature(creatureType, currentMod, arg1);
 }
 
 void adminControlForm::on_creature_mod_currentIndexChanged(const QString &)
