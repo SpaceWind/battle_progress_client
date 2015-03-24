@@ -1293,417 +1293,31 @@ QTabBar::tab:hover {
        <string>Creatures</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_10">
-       <item row="2" column="0" rowspan="2" colspan="2">
-        <widget class="QGroupBox" name="groupBox_9">
-         <property name="title">
-          <string>Spells</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_12">
-          <item row="3" column="0">
-           <widget class="QPushButton" name="creature_spell_add">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>ADD</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/create.png</normaloff>:/assets/create.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="creature_spell_save">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>SAVE</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QListWidget" name="creature_spell_list"/>
-          </item>
-          <item row="3" column="2">
-           <widget class="QPushButton" name="creature_spell_remove">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>REMOVE</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" colspan="3">
-           <widget class="CustomDropListComboBox" name="creature_spell_combobox">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QComboBox QAbstractItemView {
-	border-radius: 6px;
-    border: 2px solid darkgray;
-    selection-background-color: orange;
-}
-
-QComboBox QAbstractItemView::item {
-min-height: 30px;
-margin-top: 3px;
-}
-</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QLabel" name="label_47">
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>2</number>
-         </property>
-         <property name="text">
-          <string>Creature Name:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="creatures_combobox">
+       <item row="3" column="0">
+        <widget class="QPushButton" name="creature_save">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>290</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>32</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="editable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_34">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="text">
-          <string>Creature:</string>
+          <string>SAVE</string>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <widget class="QLineEdit" name="creature_name">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+         <property name="icon">
+          <iconset resource="main.qrc">
+           <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
          </property>
-         <property name="maximumSize">
+         <property name="iconSize">
           <size>
-           <width>16777215</width>
-           <height>32</height>
+           <width>48</width>
+           <height>48</height>
           </size>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="QLabel" name="label_35">
-         <property name="text">
-          <string>Modificator:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="5" colspan="3">
-        <widget class="QGroupBox" name="groupBox_11">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="title">
-          <string>Suffix Mode</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_14">
-          <item row="1" column="0">
-           <widget class="QPushButton" name="creature_suffix_new">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>New</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/create.png</normaloff>:/assets/create.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="creature_suffix_save">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Save</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="creature_suffix_remove">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Remove</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QComboBox" name="creature_suffixes">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-             </font>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="3" column="5" colspan="3">
-        <widget class="QGroupBox" name="groupBox_12">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="title">
-          <string>Prefix Mode</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_15">
-          <item row="1" column="1">
-           <widget class="QPushButton" name="creature_prefix_save">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Save</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QPushButton" name="creature_prefix_new">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>New</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/create.png</normaloff>:/assets/create.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="creature_prefix_remove">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Remove</string>
-            </property>
-            <property name="icon">
-             <iconset resource="main.qrc">
-              <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QComboBox" name="creature_prefixes">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>16</pointsize>
-             </font>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="7">
-        <widget class="QCheckBox" name="creature_gender">
+       <item row="3" column="2" colspan="7">
+        <widget class="QPushButton" name="creature_remove">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -1711,17 +1325,269 @@ margin-top: 3px;
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Female</string>
+          <string>Remove</string>
+         </property>
+         <property name="icon">
+          <iconset resource="main.qrc">
+           <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>48</width>
+           <height>48</height>
+          </size>
          </property>
         </widget>
        </item>
-       <item row="2" column="3" rowspan="2" colspan="2">
+       <item row="1" column="0" rowspan="2">
+        <widget class="QGroupBox" name="groupBox_11">
+         <property name="title">
+          <string>Meta Info</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_14">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox_12">
+            <property name="title">
+             <string>Creature Type</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_15">
+             <item row="0" column="1">
+              <widget class="CustomDropListComboBox" name="creature_type_combobox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_36">
+               <property name="text">
+                <string>Creature Type:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="CustomDropListComboBox" name="creatures_combobox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>290</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="creature_name">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_35">
+               <property name="text">
+                <string>Modificator:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_34">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Creature:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="3">
+              <widget class="QGroupBox" name="groupBox_13">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>Gender</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_16">
+                <item row="0" column="0">
+                 <widget class="QRadioButton" name="creature_gender_male">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Male</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QRadioButton" name="creature_gender_female">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Female</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QRadioButton" name="creature_gender_na">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Not Animacial</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="CustomDropListComboBox" name="creature_mod">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>140</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="contextMenuPolicy">
+                <enum>Qt::CustomContextMenu</enum>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_47">
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="text">
+                <string>Creature Name:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="4" rowspan="2" colspan="5">
         <widget class="QGroupBox" name="groupBox_10">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="title">
           <string>Stats</string>
@@ -1906,63 +1772,7 @@ margin-top: 3px;
          </layout>
         </widget>
        </item>
-       <item row="0" column="4">
-        <widget class="CustomDropListComboBox" name="creature_mod">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>140</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>32</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="contextMenuPolicy">
-          <enum>Qt::CustomContextMenu</enum>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="5" colspan="3">
-        <widget class="QPushButton" name="creature_remove">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Remove</string>
-         </property>
-         <property name="icon">
-          <iconset resource="main.qrc">
-           <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>48</width>
-           <height>48</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3" colspan="2">
+       <item row="3" column="1">
         <widget class="QPushButton" name="creature_reload">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -1985,27 +1795,113 @@ margin-top: 3px;
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QPushButton" name="creature_save">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+       <item row="1" column="1" rowspan="2" colspan="3">
+        <widget class="QGroupBox" name="groupBox_9">
+         <property name="title">
+          <string>Spells</string>
          </property>
-         <property name="text">
-          <string>SAVE</string>
-         </property>
-         <property name="icon">
-          <iconset resource="main.qrc">
-           <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>48</width>
-           <height>48</height>
-          </size>
-         </property>
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="3" column="2">
+           <widget class="QPushButton" name="creature_spell_save">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>SAVE</string>
+            </property>
+            <property name="icon">
+             <iconset resource="main.qrc">
+              <normaloff>:/assets/save.png</normaloff>:/assets/save.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="3">
+           <widget class="QListWidget" name="creature_spell_list"/>
+          </item>
+          <item row="3" column="3">
+           <widget class="QPushButton" name="creature_spell_remove">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>REMOVE</string>
+            </property>
+            <property name="icon">
+             <iconset resource="main.qrc">
+              <normaloff>:/assets/delete.ico</normaloff>:/assets/delete.ico</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="3">
+           <widget class="CustomDropListComboBox" name="creature_spell_combobox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QComboBox QAbstractItemView {
+	border-radius: 6px;
+    border: 2px solid darkgray;
+    selection-background-color: orange;
+}
+
+QComboBox QAbstractItemView::item {
+min-height: 30px;
+margin-top: 3px;
+}
+</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="creature_spell_add">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>ADD</string>
+            </property>
+            <property name="icon">
+             <iconset resource="main.qrc">
+              <normaloff>:/assets/create.png</normaloff>:/assets/create.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

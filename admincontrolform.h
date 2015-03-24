@@ -186,7 +186,17 @@ private slots:
 
     void on_creature_save_clicked();
 
+    void on_creatures_combobox_currentIndexChanged(const QString &arg1);
+
+    void on_creature_mod_currentIndexChanged(const QString &arg1);
+
 private:
+
+    //helpers
+    QString getCurrentMod();
+    void renderCreature(QString creatureType, QString creatureMod, QString creatureName);
+
+    //private data members
     Ui::adminControlForm *ui;
 
     currentUserInfo currentUser;
