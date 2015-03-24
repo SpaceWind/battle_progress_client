@@ -182,8 +182,6 @@ private slots:
 
     void on_pushButton_17_clicked();
 
-    void on_creature_gender_clicked(bool checked);
-
     void on_creature_save_clicked();
 
     void on_creatures_combobox_currentIndexChanged(const QString &arg1);
@@ -195,6 +193,12 @@ private slots:
     void on_creature_gender_female_clicked();
 
     void on_creature_gender_na_clicked();
+
+    void on_creature_spell_add_clicked();
+
+    void on_creature_spell_save_clicked();
+
+    void on_creature_spell_remove_clicked();
 
 private:
 

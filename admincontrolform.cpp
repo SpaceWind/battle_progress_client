@@ -1595,22 +1595,7 @@ void adminControlForm::on_pushButton_17_clicked()
     destroySpellAction();
 }
 
-void adminControlForm::on_creature_gender_clicked(bool checked)
-{
-    int prevIndex = ui->creature_mod->currentIndex();
-    ui->creature_mod->clear();
-    if (checked)
-        for(QMap<QString,QString>::iterator it = mods["female"].begin(); it != mods["female"].end(); ++it)
-        {
-            ui->creature_mod->addItem(it.key());
-        }
-    else
-        for(QMap<QString,QString>::iterator it = mods["male"].begin(); it != mods["male"].end(); ++it)
-        {
-            ui->creature_mod->addItem(it.key());
-        }
-    ui->creature_mod->setCurrentIndex(prevIndex);
-}
+
 
 void adminControlForm::on_creature_save_clicked()
 {
@@ -1734,4 +1719,38 @@ void adminControlForm::on_creature_gender_female_clicked()
 void adminControlForm::on_creature_gender_na_clicked()
 {
     setCurrentGender("na");
+}
+
+void adminControlForm::on_creature_spell_add_clicked()
+{
+    QString spellDesc = ui->creature_spell_combobox->currentText();
+    if (ui->creature_spell_list->findItems(spellDesc,Qt::MatchCaseSensitive).empty())
+        ui->creature_spell_list->addItem(spellDesc);
+
+    //TODO: save creature spell here
+}
+
+void adminControlForm::on_creature_spell_save_clicked()
+{
+    QString prevItem;
+    if (ui->creature_spell_list->currentRow() != -1 &&
+        ui->creature_spell_list->findItems(ui->creature_spell_combobox->currentText(),Qt::MatchCaseSensitive).empty())
+    {
+        prevItem = ui->creature_spell_list->currentItem()->text();
+        ui->creature_spell_list->currentItem()->setText(ui->creature_spell_combobox->currentText());
+    }
+    //Remove prev Item
+    //Save creature spell
+}
+
+void adminControlForm::on_creature_spell_remove_clicked()
+{
+    QString prevItem;
+    if (ui->creature_spell_list->currentRow() != -1)
+    {
+        prevItem = ui->creature_spell_list->currentItem()->text();
+        delete ui->creature_spell_list->takeItem(ui->creature_spell_list->currentRow());
+    }
+
+    //Remove prev Item
 }
