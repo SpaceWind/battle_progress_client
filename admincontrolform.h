@@ -26,6 +26,7 @@ struct RelationDesc
 struct SpellDescriptor
 {
     static SpellDescriptor fromString(QString str);
+    bool operator==(const SpellDescriptor& r);
     QString toString();
     QString spell_name;
     QString spell_class;
@@ -35,6 +36,7 @@ struct SpellDescriptor
     QString req;
     QString level_scales;
     QString stat_scales;
+    QString mod;
 };
 
 struct CreatureDescriptor
@@ -125,7 +127,14 @@ private slots:
     void saveCreatureAction();
     void saveCreatureResponse(QByteArray response);
 
+    void saveCreatureSpellAction();
+    void saveCreatureSpellResponse(QByteArray response);
 
+    void removeCreatureSpellAction();
+    void removeCreatureSpellResponse(QByteArray response);
+
+    void updateCreatureSpellAction();
+    void updateCreatureSpellResponse(QByteArray response);
 
     //----------------------Handlers-----------------------------------------------------------------------------
     void on_pushButton_clicked();
@@ -200,12 +209,16 @@ private slots:
 
     void on_creature_spell_remove_clicked();
 
+    void on_creature_type_combobox_currentIndexChanged(const QString &arg1);
+
 private:
 
     //helpers
     QString getCurrentMod();
     void renderCreature(QString creatureType, QString creatureMod, QString creatureName);
     void setCurrentGender(QString gender);
+    QString getCurrentGender();
+    void clearCreatureInfo();
 
     //private data members
     Ui::adminControlForm *ui;
@@ -221,6 +234,7 @@ private:
 
     QString lastDescName, lastDescItem;
     QString lastClassInfoName, lastFactionInfoName;
+    QString updateSpell;
 
     QHash<QString, QComboBox*> factionTableItems;
     QHash<QString, QComboBox*> classTableItems;

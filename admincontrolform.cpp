@@ -1091,11 +1091,12 @@ void adminControlForm::getCreaturesInfoResponse(QByteArray response)
 
                 QList<SpellDescriptor> currentCreatureSpells;
                 int creatureSpellCount = parser.getInt("creature_spells."+creatureName+".spell_count");
-                for (int j=0; j<creatureSpellCount; i++)
+                for (int j=0; j<creatureSpellCount; j++)
                 {
                     SpellDescriptor spell;
                     spell.spell_class = parser.first("creature_spells."+creatureName+".spells["+QString::number(j)+"].spell_class");
                     spell.spell_name = parser.first("creature_spells."+creatureName+".spells["+QString::number(j)+"].spell_name");
+                    spell.mod = parser.first("creature_spells."+creatureName + ".spells["+QString::number(j) + "].mod");
                     currentCreatureSpells.append(spell);
                 }
                 if (!currentCreatureSpells.isEmpty())
@@ -1107,33 +1108,34 @@ void adminControlForm::getCreaturesInfoResponse(QByteArray response)
 
             prefixes.clear();
             prefixSpells.clear();
-            int prefixesCount = parser.getInt("prefixes_count");
+            int prefixesCount = parser.getInt("prefix_count");
             for (int i=0; i<prefixesCount; i++)
             {
                 CreatureDescriptor c;
                 QString creatureName = parser.first("prefixes[" + QString::number(i) + "].creature_name");
                 c.creatureName = creatureName;
                 c.creatureType = "prefix";
-                c.dex = parser.getInt("prefixes" + QString::number(i) + "].dex");
-                c.str = parser.getInt("prefixes" + QString::number(i) + "].str");
-                c.mag = parser.getInt("prefixes" + QString::number(i) + "].mag");
-                c.intel = parser.getInt("prefixes" + QString::number(i) + "].int");
-                c.tra = parser.getInt("prefixes" + QString::number(i) + "].tra");
-                c.vel = parser.getInt("prefixes" + QString::number(i) + "].vel");
-                c.hp = parser.getInt("prefixes" + QString::number(i) + "].hp");
-                c.mana = parser.getInt("prefixes" + QString::number(i) + "].mana");
-                c.gender = parser.first("prefixes" + QString::number(i) + "].gender");
-                c.mod = parser.first("prefixes" + QString::number(i) + "].mod");
+                c.dex = parser.getInt("prefixes[" + QString::number(i) + "].dex");
+                c.str = parser.getInt("prefixes[" + QString::number(i) + "].str");
+                c.mag = parser.getInt("prefixes[" + QString::number(i) + "].mag");
+                c.intel = parser.getInt("prefixes[" + QString::number(i) + "].int");
+                c.tra = parser.getInt("prefixes[" + QString::number(i) + "].tra");
+                c.vel = parser.getInt("prefixes[" + QString::number(i) + "].vel");
+                c.hp = parser.getInt("prefixes[" + QString::number(i) + "].hp");
+                c.mana = parser.getInt("prefixes[" + QString::number(i) + "].mana");
+                c.gender = parser.first("prefixes[" + QString::number(i) + "].gender");
+                c.mod = parser.first("prefixes[" + QString::number(i) + "].mod");
                 prefixes[creatureName] = c;
 
 
                 QList<SpellDescriptor> currentPrefixSpells;
                 int prefixSpellCount = parser.getInt("prefix_spells."+creatureName+".spell_count");
-                for (int j=0; j<prefixSpellCount; i++)
+                for (int j=0; j<prefixSpellCount; j++)
                 {
                     SpellDescriptor spell;
                     spell.spell_class = parser.first("prefix_spells."+creatureName+".spells["+QString::number(j)+"].spell_class");
                     spell.spell_name = parser.first("prefix_spells."+creatureName+".spells["+QString::number(j)+"].spell_name");
+                    spell.mod = parser.first("prefix_spells."+creatureName + ".spells["+QString::number(j) + "].mod");
                     currentPrefixSpells.append(spell);
                 }
                 if (!currentPrefixSpells.isEmpty())
@@ -1149,25 +1151,26 @@ void adminControlForm::getCreaturesInfoResponse(QByteArray response)
                 QString creatureName = parser.first("suffixes[" + QString::number(i) + "].creature_name");
                 c.creatureName = creatureName;
                 c.creatureType = "creature";
-                c.dex = parser.getInt("suffixes" + QString::number(i) + "].dex");
-                c.str = parser.getInt("suffixes" + QString::number(i) + "].str");
-                c.mag = parser.getInt("suffixes" + QString::number(i) + "].mag");
-                c.intel = parser.getInt("suffixes" + QString::number(i) + "].int");
-                c.tra = parser.getInt("suffixes" + QString::number(i) + "].tra");
-                c.vel = parser.getInt("suffixes" + QString::number(i) + "].vel");
-                c.hp = parser.getInt("suffixes" + QString::number(i) + "].hp");
-                c.mana = parser.getInt("suffixes" + QString::number(i) + "].mana");
-                c.gender = parser.first("suffixes" + QString::number(i) + "].gender");
-                c.mod = parser.first("suffixes" + QString::number(i) + "].mod");
+                c.dex = parser.getInt("suffixes[" + QString::number(i) + "].dex");
+                c.str = parser.getInt("suffixes[" + QString::number(i) + "].str");
+                c.mag = parser.getInt("suffixes[" + QString::number(i) + "].mag");
+                c.intel = parser.getInt("suffixes[" + QString::number(i) + "].int");
+                c.tra = parser.getInt("suffixes[" + QString::number(i) + "].tra");
+                c.vel = parser.getInt("suffixes[" + QString::number(i) + "].vel");
+                c.hp = parser.getInt("suffixes[" + QString::number(i) + "].hp");
+                c.mana = parser.getInt("suffixes[" + QString::number(i) + "].mana");
+                c.gender = parser.first("suffixes[" + QString::number(i) + "].gender");
+                c.mod = parser.first("suffixes[" + QString::number(i) + "].mod");
                 suffixes[creatureName] = c;
 
                 QList<SpellDescriptor> currentSuffixSpells;
                 int suffixSpellCount = parser.getInt("suffix_spells."+creatureName+".spell_count");
-                for (int j=0; j<suffixSpellCount; i++)
+                for (int j=0; j<suffixSpellCount; j++)
                 {
                     SpellDescriptor spell;
                     spell.spell_class = parser.first("suffix_spells."+creatureName+".spells["+QString::number(j)+"].spell_class");
                     spell.spell_name = parser.first("suffix_spells."+creatureName+".spells["+QString::number(j)+"].spell_name");
+                    spell.mod = parser.first("suffix_spells."+creatureName + ".spells["+QString::number(j) + "].mod");
                     currentSuffixSpells.append(spell);
                 }
                 if (!currentSuffixSpells.isEmpty())
@@ -1191,7 +1194,7 @@ void adminControlForm::saveCreatureAction()
     }
     QHash<QString, QString> params;
     params["apikey"] = currentUser.apikey;
-    params["creature_type"] = "creature";
+    params["creature_type"] = ui->creature_type_combobox->currentText();
     params["creature_name"] = ui->creatures_combobox->currentText();
     if (ui->creatures_combobox->currentText() != ui->creature_name->text())
         params["rename"] = ui->creature_name->text();
@@ -1228,6 +1231,152 @@ void adminControlForm::saveCreatureResponse(QByteArray response)
             ui->status_label->setText(parser.first("status"));
     }
     setEnabled(true);
+}
+
+void adminControlForm::saveCreatureSpellAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+    params["spell"] = ui->creature_spell_combobox->currentText().replace(":","@");
+    params["creature_type"] = ui->creature_type_combobox->currentText();
+    params["creature_name"] = ui->creatures_combobox->currentText();
+    params["mod"] = getCurrentMod();
+
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(saveCreatureSpellResponse(QByteArray)));
+    server->call("admin.creatures.spells add",params);
+
+    setEnabled(false);
+    ui->status_label->setText("Saving Spell...");
+}
+
+void adminControlForm::saveCreatureSpellResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            ui->status_label->setText("OK");
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+    setEnabled(true);
+}
+
+void adminControlForm::removeCreatureSpellAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+    if (updateSpell != "")
+    {
+        params["spell"] = updateSpell.replace(":","@");
+        updateSpell = "";
+    }
+    else
+        params["spell"] = ui->creature_spell_list->currentItem()->text().replace(":","@");
+    params["creature_type"] = ui->creature_type_combobox->currentText();
+    params["creature_name"] = ui->creatures_combobox->currentText();
+    params["mod"] = getCurrentMod();
+
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(removeCreatureSpellResponse(QByteArray)));
+    server->call("admin.creatures.spells destroy",params);
+
+    setEnabled(false);
+    ui->status_label->setText("Removing Spell...");
+}
+
+void adminControlForm::removeCreatureSpellResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            ui->status_label->setText("OK");
+        }
+        else
+            ui->status_label->setText(parser.first("status"));
+    }
+    setEnabled(true);
+}
+
+void adminControlForm::updateCreatureSpellAction()
+{
+    if (server)
+    {
+        delete server;
+        server = new GameServer(currentUser.server);
+    }
+
+    QHash<QString, QString> params;
+    params["apikey"] = currentUser.apikey;
+    params["spell"] = ui->creature_spell_combobox->currentText().replace(":","@");
+    params["creature_type"] = ui->creature_type_combobox->currentText();
+    params["creature_name"] = ui->creatures_combobox->currentText();
+    params["mod"] = getCurrentMod();
+
+
+    QObject::connect(server,SIGNAL(callFinished(QByteArray)),this,SLOT(updateCreatureSpellResponse(QByteArray)));
+    server->call("admin.creatures.spells add",params);
+
+    setEnabled(false);
+    ui->status_label->setText("Saving Spell...");
+}
+
+void adminControlForm::updateCreatureSpellResponse(QByteArray response)
+{
+    if (response.indexOf("!!:HTTP") == 0)
+    {
+        ui->status_label->setText("CONNECTION UNAVAILABLE!" + QString(response.toStdString().c_str()));
+        setEnabled(true);
+    }
+    else
+    {
+        jsonParser parser(response);
+        if (parser.getBool("success"))
+        {
+            updateSpell = ui->creature_spell_list->currentItem()->text();
+            ui->creature_spell_list->currentItem()->setText(ui->creature_spell_combobox->currentText());
+
+            SpellDescriptor sd;
+            QStringList spellDescTokens = ui->creature_spell_combobox->currentText().split(":");
+            sd.spell_class = spellDescTokens.at(0);
+            sd.spell_name = spellDescTokens.at(1);
+            if (ui->creature_type_combobox->currentText() == "creature")
+                creatureSpells[ui->creatures_combobox->currentText()].append(sd);
+            else if (ui->creature_type_combobox->currentText() == "prefix")
+                prefixSpells[ui->creatures_combobox->currentText()].append(sd);
+            else if (ui->creature_type_combobox->currentText() == "suffix")
+                suffixSpells[ui->creatures_combobox->currentText()].append(sd);
+
+            QTimer::singleShot(150,this, SLOT(removeCreatureSpellAction()));
+            ui->status_label->setText("OK");
+        }
+        else
+        {
+            ui->status_label->setText(parser.first("status"));
+            setEnabled(true);
+        }
+    }
 }
 
 
@@ -1467,6 +1616,12 @@ SpellDescriptor SpellDescriptor::fromString(QString str)
     return result;
 }
 
+bool SpellDescriptor::operator==(const SpellDescriptor &r)
+{
+    return (r.cd == cd) && (r.cost == cost) && (r.effects == effects) && (r.level_scales == level_scales) &&
+           (r.req == req) && (r.spell_class == spell_class) && (r.spell_name == spell_name) && (r.stat_scales == stat_scales);
+}
+
 QString SpellDescriptor::toString()
 {
     QString result = "n:"+spell_name+";r:"+req+";l:"+level_scales+";s:"+stat_scales+";cd:"+cd+";c:"+cost+";e:";
@@ -1604,6 +1759,8 @@ void adminControlForm::on_creature_save_clicked()
 
 QString adminControlForm::getCurrentMod()
 {
+    if (ui->creature_type_combobox->currentText() != "creature")
+        return ui->creature_mod->currentText();
     if (ui->creature_gender_male->isChecked() && mods["male"].contains(ui->creature_mod->currentText()))
         return mods["male"][ui->creature_mod->currentText()];
     if (ui->creature_gender_female->isChecked() && mods["female"].contains(ui->creature_mod->currentText()))
@@ -1618,16 +1775,7 @@ void adminControlForm::renderCreature(QString creatureType, QString creatureMod,
     {
         if (!creatures.contains(creatureName + ":" + creatureMod))
         {
-            ui->creature_stats_str->setValue(0);
-            ui->creature_stats_dex->setValue(0);
-            ui->creature_stats_mag->setValue(0);
-            ui->creature_stats_int->setValue(0);
-            ui->creature_stats_tra->setValue(0);
-            ui->creature_stats_vel->setValue(0);
-            ui->creature_stats_hp->setValue(0);
-            ui->creature_stats_mana->setValue(0);
-
-            ui->creature_spell_list->clear();
+            clearCreatureInfo();
             return;
         }
 
@@ -1648,8 +1796,79 @@ void adminControlForm::renderCreature(QString creatureType, QString creatureMod,
         {
             QList<SpellDescriptor> spellsForCreature = creatureSpells[creatureName];
             foreach (const SpellDescriptor& spell, spellsForCreature)
-                ui->creature_spell_list->addItem(spell.spell_class + ":" + spell.spell_name);
+                if (spell.mod == getCurrentMod())
+                    ui->creature_spell_list->addItem(spell.spell_class + ":" + spell.spell_name);
         }
+    }
+    else if (creatureType == "prefix")
+    {
+        CreatureDescriptor c;
+        bool found = false;
+        for(QHash<QString, CreatureDescriptor>::iterator it = prefixes.begin(); it != prefixes.end(); ++it)
+            if (it.value().creatureName == creatureName && it.value().mod == creatureMod)
+            {
+                found = true;
+                c = it.value();
+                break;
+            }
+        if (found)
+        {
+            ui->creature_name->setText(creatureName);
+            ui->creature_stats_str->setValue(c.str);
+            ui->creature_stats_dex->setValue(c.mag);
+            ui->creature_stats_mag->setValue(c.mag);
+            ui->creature_stats_int->setValue(c.intel);
+            ui->creature_stats_tra->setValue(c.tra);
+            ui->creature_stats_vel->setValue(c.vel);
+            ui->creature_stats_hp->setValue(c.hp);
+            ui->creature_stats_mana->setValue(c.mana);
+
+            ui->creature_spell_list->clear();
+            if (creatureSpells.contains(creatureName))
+            {
+                QList<SpellDescriptor> spellsForCreature = prefixSpells[creatureName];
+                foreach (const SpellDescriptor& spell, spellsForCreature)
+                    if (spell.mod == getCurrentMod())
+                        ui->creature_spell_list->addItem(spell.spell_class + ":" + spell.spell_name);
+            }
+        }
+        else
+            clearCreatureInfo();
+    }
+    else
+    {
+        CreatureDescriptor c;
+        bool found = false;
+        for(QHash<QString, CreatureDescriptor>::iterator it = suffixes.begin(); it != suffixes.end(); ++it)
+            if (it.value().creatureName == creatureName && it.value().mod == creatureMod)
+            {
+                found = true;
+                c = it.value();
+                break;
+            }
+        if (found)
+        {
+            ui->creature_name->setText(creatureName);
+            ui->creature_stats_str->setValue(c.str);
+            ui->creature_stats_dex->setValue(c.mag);
+            ui->creature_stats_mag->setValue(c.mag);
+            ui->creature_stats_int->setValue(c.intel);
+            ui->creature_stats_tra->setValue(c.tra);
+            ui->creature_stats_vel->setValue(c.vel);
+            ui->creature_stats_hp->setValue(c.hp);
+            ui->creature_stats_mana->setValue(c.mana);
+
+            ui->creature_spell_list->clear();
+            if (creatureSpells.contains(creatureName))
+            {
+                QList<SpellDescriptor> spellsForCreature = suffixSpells[creatureName];
+                foreach (const SpellDescriptor& spell, spellsForCreature)
+                    if (spell.mod == getCurrentMod())
+                        ui->creature_spell_list->addItem(spell.spell_class + ":" + spell.spell_name);
+            }
+        }
+        else
+            clearCreatureInfo();
     }
 }
 
@@ -1674,6 +1893,29 @@ void adminControlForm::setCurrentGender(QString gender)
         prevIndex = 0;
     ui->creature_mod->setCurrentIndex(prevIndex);
     QObject::connect(ui->creature_mod, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_creature_mod_currentIndexChanged(QString)));
+}
+
+QString adminControlForm::getCurrentGender()
+{
+    if (ui->creature_gender_male->isChecked())
+        return "male";
+    if (ui->creature_gender_female->isChecked())
+        return "female";
+    return "na";
+}
+
+void adminControlForm::clearCreatureInfo()
+{
+    ui->creature_stats_str->setValue(0);
+    ui->creature_stats_dex->setValue(0);
+    ui->creature_stats_mag->setValue(0);
+    ui->creature_stats_int->setValue(0);
+    ui->creature_stats_tra->setValue(0);
+    ui->creature_stats_vel->setValue(0);
+    ui->creature_stats_hp->setValue(0);
+    ui->creature_stats_mana->setValue(0);
+
+    ui->creature_spell_list->clear();
 }
 
 void adminControlForm::on_creatures_combobox_currentIndexChanged(const QString &arg1)
@@ -1725,9 +1967,22 @@ void adminControlForm::on_creature_spell_add_clicked()
 {
     QString spellDesc = ui->creature_spell_combobox->currentText();
     if (ui->creature_spell_list->findItems(spellDesc,Qt::MatchCaseSensitive).empty())
+    {
         ui->creature_spell_list->addItem(spellDesc);
 
-    //TODO: save creature spell here
+        SpellDescriptor sd;
+        QStringList spellDescTokens = spellDesc.split(":");
+        sd.spell_class = spellDescTokens.at(0);
+        sd.spell_name = spellDescTokens.at(1);
+        if (ui->creature_type_combobox->currentText() == "creature")
+            creatureSpells[ui->creatures_combobox->currentText()].append(sd);
+        else if (ui->creature_type_combobox->currentText() == "prefix")
+            prefixSpells[ui->creatures_combobox->currentText()].append(sd);
+        else if (ui->creature_type_combobox->currentText() == "suffix")
+            suffixSpells[ui->creatures_combobox->currentText()].append(sd);
+
+        saveCreatureSpellAction();
+    }
 }
 
 void adminControlForm::on_creature_spell_save_clicked()
@@ -1737,10 +1992,31 @@ void adminControlForm::on_creature_spell_save_clicked()
         ui->creature_spell_list->findItems(ui->creature_spell_combobox->currentText(),Qt::MatchCaseSensitive).empty())
     {
         prevItem = ui->creature_spell_list->currentItem()->text();
-        ui->creature_spell_list->currentItem()->setText(ui->creature_spell_combobox->currentText());
+
+        if (ui->creature_type_combobox->currentText() == "creature")
+        {
+            foreach (const SpellDescriptor& sd, creatureSpells[ui->creatures_combobox->currentText()])
+                if (sd.spell_class + ":" + sd.spell_name == prevItem)
+                    creatureSpells[ui->creatures_combobox->currentText()].removeOne(sd);
+        }
+
+        else if (ui->creature_type_combobox->currentText() == "prefix")
+        {
+            foreach (const SpellDescriptor& sd, creatureSpells[ui->creatures_combobox->currentText()])
+                if (sd.spell_class + ":" + sd.spell_name == prevItem)
+                    prefixSpells[ui->creatures_combobox->currentText()].removeOne(sd);
+        }
+
+        else if (ui->creature_type_combobox->currentText() == "suffix")
+        {
+            foreach (const SpellDescriptor& sd, creatureSpells[ui->creatures_combobox->currentText()])
+                if (sd.spell_class + ":" + sd.spell_name == prevItem)
+                    suffixSpells[ui->creatures_combobox->currentText()].removeOne(sd);
+        }
+        updateCreatureSpellAction();
+
+
     }
-    //Remove prev Item
-    //Save creature spell
 }
 
 void adminControlForm::on_creature_spell_remove_clicked()
@@ -1749,8 +2025,51 @@ void adminControlForm::on_creature_spell_remove_clicked()
     if (ui->creature_spell_list->currentRow() != -1)
     {
         prevItem = ui->creature_spell_list->currentItem()->text();
+        QStringList itemTokens = prevItem.split(":");
+        SpellDescriptor sd;
+        sd.spell_class = itemTokens.at(0);
+        sd.spell_name = itemTokens.at(1);
         delete ui->creature_spell_list->takeItem(ui->creature_spell_list->currentRow());
+        if (ui->creature_type_combobox->currentText() == "creature")
+            creatureSpells[ui->creatures_combobox->currentText()].removeAll(sd);
+        else if (ui->creature_type_combobox->currentText() == "prefix")
+            prefixSpells[ui->creatures_combobox->currentText()].removeAll(sd);
+        else if (ui->creature_type_combobox->currentText() == "suffix")
+            suffixSpells[ui->creatures_combobox->currentText()].removeAll(sd);
+        removeCreatureSpellAction();
     }
+}
 
-    //Remove prev Item
+void adminControlForm::on_creature_type_combobox_currentIndexChanged(const QString &arg1)
+{
+    if (arg1 == "creature")
+    {
+        ui->creature_mod->clear();
+        ui->creature_mod->setEditable(false);
+
+        QString currentGender = getCurrentGender();
+        for(QMap<QString, QString>::iterator it = mods[currentGender].begin(); it!= mods[currentGender].end(); ++it)
+        {
+            ui->creature_mod->addItem(it.key());
+        }
+    }
+    else
+    {
+        ui->creature_mod->clear();
+        ui->creature_mod->setEditable(true);
+        QString creatureName = ui->creatures_combobox->currentText();
+        if (ui->creature_type_combobox->currentText() == "prefix")
+            for (QHash<QString, CreatureDescriptor>::iterator it = prefixes.begin(); it != prefixes.end(); ++it)
+            {
+                if (it.key() == creatureName && (it.value().creatureType == ui->creature_type_combobox->currentText()))
+                    ui->creature_mod->addItem(it.value().mod);
+            }
+        else
+            for (QHash<QString, CreatureDescriptor>::iterator it = suffixes.begin(); it != suffixes.end(); ++it)
+            {
+                if (it.key() == creatureName && (it.value().creatureType == ui->creature_type_combobox->currentText()))
+                    ui->creature_mod->addItem(it.value().mod);
+            }
+        renderCreature(ui->creature_type_combobox->currentText(),ui->creature_mod->currentText(),ui->creatures_combobox->currentText());
+    }
 }
