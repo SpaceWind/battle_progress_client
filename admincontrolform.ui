@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>952</width>
-    <height>499</height>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,7 +98,7 @@ QTabBar::tab:hover {
  }</string>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tab">
       <property name="sizePolicy">
@@ -1039,7 +1039,7 @@ QTabBar::tab:hover {
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_32">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1052,7 +1052,7 @@ QTabBar::tab:hover {
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QPushButton" name="new_effect">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -1075,7 +1075,7 @@ QTabBar::tab:hover {
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="4" column="1">
            <widget class="QPushButton" name="update_effect">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -1111,7 +1111,7 @@ QTabBar::tab:hover {
             </property>
            </widget>
           </item>
-          <item row="3" column="2">
+          <item row="4" column="2">
            <widget class="QPushButton" name="pushButton_18">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -1134,7 +1134,7 @@ QTabBar::tab:hover {
             </property>
            </widget>
           </item>
-          <item row="2" column="1" colspan="2">
+          <item row="3" column="1" colspan="2">
            <widget class="QLineEdit" name="spell_value">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -1163,6 +1163,16 @@ QTabBar::tab:hover {
              </sizepolicy>
             </property>
            </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_45">
+            <property name="text">
+             <string>Effect Type:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" colspan="2">
+           <widget class="QComboBox" name="spell_effect_type"/>
           </item>
          </layout>
         </widget>
@@ -1441,7 +1451,7 @@ QTabBar::tab:hover {
               </widget>
              </item>
              <item row="4" column="0" colspan="3">
-              <widget class="QGroupBox" name="groupBox_13">
+              <widget class="QGroupBox" name="creature_gender_groupbox">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>

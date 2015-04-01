@@ -1125,7 +1125,7 @@ void adminControlForm::getCreaturesInfoResponse(QByteArray response)
                 c.mana = parser.getInt("prefixes[" + QString::number(i) + "].mana");
                 c.gender = parser.first("prefixes[" + QString::number(i) + "].gender");
                 c.mod = parser.first("prefixes[" + QString::number(i) + "].mod");
-                prefixes[creatureName] = c;
+                prefixes.insert(creatureName,c);
 
 
                 QList<SpellDescriptor> currentPrefixSpells;
@@ -1150,7 +1150,7 @@ void adminControlForm::getCreaturesInfoResponse(QByteArray response)
                 CreatureDescriptor c;
                 QString creatureName = parser.first("suffixes[" + QString::number(i) + "].creature_name");
                 c.creatureName = creatureName;
-                c.creatureType = "creature";
+                c.creatureType = "suffix";
                 c.dex = parser.getInt("suffixes[" + QString::number(i) + "].dex");
                 c.str = parser.getInt("suffixes[" + QString::number(i) + "].str");
                 c.mag = parser.getInt("suffixes[" + QString::number(i) + "].mag");
@@ -1161,7 +1161,7 @@ void adminControlForm::getCreaturesInfoResponse(QByteArray response)
                 c.mana = parser.getInt("suffixes[" + QString::number(i) + "].mana");
                 c.gender = parser.first("suffixes[" + QString::number(i) + "].gender");
                 c.mod = parser.first("suffixes[" + QString::number(i) + "].mod");
-                suffixes[creatureName] = c;
+                suffixes.insert(creatureName, c);
 
                 QList<SpellDescriptor> currentSuffixSpells;
                 int suffixSpellCount = parser.getInt("suffix_spells."+creatureName+".spell_count");
@@ -1183,6 +1183,7 @@ void adminControlForm::getCreaturesInfoResponse(QByteArray response)
             ui->status_label->setText(parser.first("status"));
     }
     setEnabled(true);
+    ui->creature_type_combobox->setCurrentIndex(0);
 }
 
 void adminControlForm::saveCreatureAction()
@@ -1576,6 +1577,24 @@ void adminControlForm::on_tabWidget_currentChanged(int index)
         ui->spell_effect_mod_combobox->addItem("aoe.both.ho");
         ui->spell_effect_mod_combobox->addItem("aoe.both.mo");
 
+
+        ui->spell_effect_type->addItem("");
+        ui->spell_effect_type->addItem("onhit");
+        ui->spell_effect_type->addItem("afterhit");
+        ui->spell_effect_type->addItem("onstart");
+        ui->spell_effect_type->addItem("onend");
+        ui->spell_effect_type->addItem("oncast");
+        ui->spell_effect_type->addItem("aftercast");
+        ui->spell_effect_type->addItem("enemyhit");
+        ui->spell_effect_type->addItem("enemycast");
+        ui->spell_effect_type->addItem("onturn");
+        ui->spell_effect_type->addItem("onturn.2");
+        ui->spell_effect_type->addItem("onturn.3");
+        ui->spell_effect_type->addItem("enemyturn");
+        ui->spell_effect_type->addItem("enemyturn.2");
+        ui->spell_effect_type->addItem("enemyturn.3");
+
+
         loadSpellsForClassAction();
     }
     else if (index == 6)
@@ -1658,8 +1677,25 @@ void adminControlForm::on_spell_effect_list_currentRowChanged(int currentRow)
         ui->spell_value->setText("0");
         return;
     }
+    QString effectTypeFound = "";
+    for (int i=1; i<ui->spell_effect_type->count(); i++)
+        if (ui->spell_effect_list->item(currentRow)->text().indexOf(ui->spell_effect_type->itemText(i) + ".") != -1)
+        {
+            effectTypeFound = ui->spell_effect_type->itemText(i);
+            break;
+        }
+    QString effectModFound = "";
+    for (int i=1; i<ui->spell_effect_mod_combobox->count(); i++)
+        if (ui->spell_effect_list->item(currentRow)->text().indexOf(ui->spell_effect_mod_combobox->itemText(i) + ".") != -1)
+        {
+            effectModFound = ui->spell_effect_mod_combobox->itemText(i);
+            break;
+        }
+
+
     QStringList effectTokens = ui->spell_effect_list->item(currentRow)->text().split("=");
-    QStringList effectModTokens = effectTokens.at(1).split(".");
+    QStringList effectDescTokens = effectTokens.at(1).split(".");
+   /* QStringList effectModTokens = effectTokens.at(1).split(".");
     QString mod = "";
     QString value = "";
     if (effectModTokens.count() != 1)
@@ -1676,17 +1712,20 @@ void adminControlForm::on_spell_effect_list_currentRowChanged(int currentRow)
         }
     }
     else
-        value = effectTokens.at(1);
-    ui->spell_effect_mod_combobox->setCurrentIndex(ui->spell_effect_mod_combobox->findText(mod));
+        value = effectTokens.at(1);*/
+    ui->spell_effect_mod_combobox->setCurrentIndex(ui->spell_effect_mod_combobox->findText(effectModFound));
+    ui->spell_effect_type->setCurrentIndex(ui->spell_effect_type->findText(effectTypeFound));
     ui->spell_effect_combobox->setCurrentIndex(ui->spell_effect_combobox->findText(effectTokens.first()));
-    ui->spell_value->setText(value);
+    ui->spell_value->setText(effectDescTokens.last());
 }
 
 void adminControlForm::on_new_effect_clicked()
 {
     if (ui->spell_value->text() != "")
     {
-        ui->spell_effect_list->addItem(ui->spell_effect_combobox->currentText() + "=" + ui->spell_effect_mod_combobox->currentText()
+        ui->spell_effect_list->addItem(ui->spell_effect_combobox->currentText() + "="
+                                       + ui->spell_effect_type->currentText() + (ui->spell_effect_type->currentText() == "" ? "" : ".")
+                                       + ui->spell_effect_mod_combobox->currentText()
                                        + (ui->spell_effect_mod_combobox->currentText() == "" ? "" : ".") + ui->spell_value->text());
         ui->spell_value->setText("");
     }
@@ -1696,7 +1735,9 @@ void adminControlForm::on_update_effect_clicked()
 {
     if (ui->spell_value->text() != "")
     {
-        ui->spell_effect_list->currentItem()->setText(ui->spell_effect_combobox->currentText() + "=" + ui->spell_effect_mod_combobox->currentText()
+        ui->spell_effect_list->currentItem()->setText(ui->spell_effect_combobox->currentText() + "="
+                                                      + ui->spell_effect_type->currentText() + (ui->spell_effect_type->currentText() == "" ? "" : ".")
+                                                      + ui->spell_effect_mod_combobox->currentText()
                                                       + (ui->spell_effect_mod_combobox->currentText() == "" ? "" : ".") + ui->spell_value->text());
     }
 }
@@ -1824,12 +1865,20 @@ void adminControlForm::renderCreature(QString creatureType, QString creatureMod,
             ui->creature_stats_mana->setValue(c.mana);
 
             ui->creature_spell_list->clear();
-            if (creatureSpells.contains(creatureName))
+            if (prefixSpells.contains(creatureName))
             {
                 QList<SpellDescriptor> spellsForCreature = prefixSpells[creatureName];
+                SpellDescriptor sp;
+                QString currentMod;
                 foreach (const SpellDescriptor& spell, spellsForCreature)
-                    if (spell.mod == getCurrentMod())
-                        ui->creature_spell_list->addItem(spell.spell_class + ":" + spell.spell_name);
+                {
+                    currentMod = getCurrentMod();
+                    if (spell.mod == currentMod)
+                    {
+                        sp = spell;
+                        ui->creature_spell_list->addItem(sp.spell_class + ":" + sp.spell_name);
+                    }
+                }
             }
         }
         else
@@ -1859,7 +1908,7 @@ void adminControlForm::renderCreature(QString creatureType, QString creatureMod,
             ui->creature_stats_mana->setValue(c.mana);
 
             ui->creature_spell_list->clear();
-            if (creatureSpells.contains(creatureName))
+            if (suffixSpells.contains(creatureName))
             {
                 QList<SpellDescriptor> spellsForCreature = suffixSpells[creatureName];
                 foreach (const SpellDescriptor& spell, spellsForCreature)
@@ -1926,10 +1975,6 @@ void adminControlForm::on_creatures_combobox_currentIndexChanged(const QString &
 
     if (creatureType == "creature")
         setCurrentGender(creatures[arg1 + ":" + currentMod].gender);
-    else if (creatureType == "prefix")
-        setCurrentGender(prefixes[arg1 + ":" + currentMod].gender);
-    else
-        setCurrentGender(suffixes[arg1 + ":" + currentMod].gender);
 
     renderCreature(creatureType, currentMod, arg1);
 }
@@ -1940,10 +1985,6 @@ void adminControlForm::on_creature_mod_currentIndexChanged(const QString &)
     QString currentMod = getCurrentMod();
     if (creatureType == "creature")
         setCurrentGender(creatures[ui->creatures_combobox->currentText() + ":" + currentMod].gender);
-    else if (creatureType == "prefix")
-        setCurrentGender(prefixes[ui->creatures_combobox->currentText() + ":" + currentMod].gender);
-    else
-        setCurrentGender(suffixes[ui->creatures_combobox->currentText() + ":" + currentMod].gender);
 
     renderCreature(creatureType, currentMod, ui->creatures_combobox->currentText());
 }
@@ -2029,6 +2070,8 @@ void adminControlForm::on_creature_spell_remove_clicked()
         SpellDescriptor sd;
         sd.spell_class = itemTokens.at(0);
         sd.spell_name = itemTokens.at(1);
+        if (ui->creature_type_combobox->currentText() != "creature")
+            sd.mod = ui->creature_mod->currentText();
         delete ui->creature_spell_list->takeItem(ui->creature_spell_list->currentRow());
         if (ui->creature_type_combobox->currentText() == "creature")
             creatureSpells[ui->creatures_combobox->currentText()].removeAll(sd);
@@ -2036,6 +2079,8 @@ void adminControlForm::on_creature_spell_remove_clicked()
             prefixSpells[ui->creatures_combobox->currentText()].removeAll(sd);
         else if (ui->creature_type_combobox->currentText() == "suffix")
             suffixSpells[ui->creatures_combobox->currentText()].removeAll(sd);
+
+        updateSpell = prevItem;
         removeCreatureSpellAction();
     }
 }
@@ -2052,11 +2097,13 @@ void adminControlForm::on_creature_type_combobox_currentIndexChanged(const QStri
         {
             ui->creature_mod->addItem(it.key());
         }
+        ui->creature_gender_groupbox->setEnabled(true);
     }
     else
     {
         ui->creature_mod->clear();
         ui->creature_mod->setEditable(true);
+        ui->creature_gender_groupbox->setEnabled(false);
         QString creatureName = ui->creatures_combobox->currentText();
         if (ui->creature_type_combobox->currentText() == "prefix")
             for (QHash<QString, CreatureDescriptor>::iterator it = prefixes.begin(); it != prefixes.end(); ++it)
@@ -2073,3 +2120,14 @@ void adminControlForm::on_creature_type_combobox_currentIndexChanged(const QStri
         renderCreature(ui->creature_type_combobox->currentText(),ui->creature_mod->currentText(),ui->creatures_combobox->currentText());
     }
 }
+
+void adminControlForm::on_creature_reload_clicked()
+{
+    getCreaturesInfoAction();
+}
+
+void adminControlForm::on_creature_remove_clicked()
+{
+}
+
+

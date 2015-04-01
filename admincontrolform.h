@@ -6,6 +6,7 @@
 #include <QHash>
 #include <QList>
 #include <QMap>
+#include <QMultiHash>
 #include "helpers.h"
 #include "gameserver.h"
 
@@ -211,6 +212,10 @@ private slots:
 
     void on_creature_type_combobox_currentIndexChanged(const QString &arg1);
 
+    void on_creature_reload_clicked();
+
+    void on_creature_remove_clicked();
+
 private:
 
     //helpers
@@ -251,8 +256,8 @@ private:
     QHash<QString, QList<SpellDescriptor> > prefixSpells;  //[monster]
     QHash<QString, QList<SpellDescriptor> > suffixSpells;  //[monster]
     QHash<QString, CreatureDescriptor> creatures;
-    QHash<QString, CreatureDescriptor> prefixes;
-    QHash<QString, CreatureDescriptor> suffixes;
+    QMultiHash<QString, CreatureDescriptor> prefixes;
+    QMultiHash<QString, CreatureDescriptor> suffixes;
     QHash<QString, SpellDescriptor> allSpells;
 
 };
