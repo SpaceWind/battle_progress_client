@@ -1695,24 +1695,7 @@ void adminControlForm::on_spell_effect_list_currentRowChanged(int currentRow)
 
     QStringList effectTokens = ui->spell_effect_list->item(currentRow)->text().split("=");
     QStringList effectDescTokens = effectTokens.at(1).split(".");
-   /* QStringList effectModTokens = effectTokens.at(1).split(".");
-    QString mod = "";
-    QString value = "";
-    if (effectModTokens.count() != 1)
-    {
-        for (int i=0; i< effectModTokens.count()-1; i++)
-        {
-            mod += effectModTokens.at(i);
-            if (i != effectModTokens.count() - 2)
-                mod += ".";
-            else
-            {
-                value = effectModTokens.at(i+1);
-            }
-        }
-    }
-    else
-        value = effectTokens.at(1);*/
+
     ui->spell_effect_mod_combobox->setCurrentIndex(ui->spell_effect_mod_combobox->findText(effectModFound));
     ui->spell_effect_type->setCurrentIndex(ui->spell_effect_type->findText(effectTypeFound));
     ui->spell_effect_combobox->setCurrentIndex(ui->spell_effect_combobox->findText(effectTokens.first()));
